@@ -53,6 +53,8 @@ Vary the hook each time; never reuse a hook sentence that is already in LOG.md.
 5. Music: `python3 kit/music.py <n> /tmp/m<n>.wav` with a different n (1–6) for each of the day's 3 videos.
 6. Mix: `ffmpeg -y -i /tmp/<slug>_v.mp4 -i /tmp/m<n>.wav -map 0:v -map 1:a -c:v copy -af "loudnorm=I=-14:TP=-1.5:LRA=11" -ar 48000 -c:a aac -b:a 192k -shortest -movflags +faststart media/<YYYY-MM-DD>/swiftgrab-<slug>.mp4`
    then `ffprobe` it: 1080×1920, h264 + aac, 16 s.
+7. **Cover (required — otherwise the posts look empty in the grid):** `python3 kit/cover.py media/<date>/swiftgrab-<slug>-raw.mp4 <time when the hook headline is fully visible, usually 3.5> media/covers/swiftgrab-<slug>-cover.jpg media/<date>/swiftgrab-<slug>.mp4`
+   (so mix to `...-raw.mp4` in step 6, then make the final file with the cover; delete the -raw file before committing). Look at the cover image before scheduling.
 
 ## Real screen recordings (preferred when available)
 Recordings from the owner live in `recordings/` (never show personal folders, file names, bookmarks, antivirus popups, other apps). Cut and crop with ffmpeg into 1000×562 clips, render the graphics page with an empty frame (see `kit/videos/2026-10-29-install-3-steps.html`, element #ph at left 40, top 620), then lay the clips over it with ffmpeg `overlay=40:620:enable='between(t,a,b)'`. Longer music: `BARS=12 python3 kit/music.py <n> out.wav` gives 24 s (end-card hit at 20 s); render with `node kit/render.js <html> out.mp4 24`.
@@ -77,7 +79,7 @@ Titles under 60 characters: TikTok title, Facebook Reel title, YouTube title end
 ## Schedule (Metricool)
 - `getScheduledPosts` for tomorrow; `getBestTimeToPostByNetwork` (instagram and tiktok) for tomorrow.
 - Tomorrow must end up with **3 posts in total**: if some already exist, only add the missing number. Times at least 2 h apart, between 9:00 and 21:00, preferring the best hours (default 10:00, 13:00, 18:00 when no data). Never touch existing posts.
-- `createScheduledPost` per video: providers instagram, facebook, tiktok, youtube; `instagramData {type:"REEL", showReelOnFeed:true}`, `facebookData {type:"REEL", title}`, `tiktokData {title, privacyOption:"PUBLIC_TO_EVERYONE", commercialContentOwnBrand:true}`, `youtubeData {title, type:"short", privacy:"public", madeForKids:false, category:"SCIENCE_TECHNOLOGY", tags}`. Media = the raw.githubusercontent.com link.
+- `createScheduledPost` per video: providers instagram, facebook, tiktok, youtube; `instagramData {type:"REEL", showReelOnFeed:true}`, `facebookData {type:"REEL", title}`, `tiktokData {title, privacyOption:"PUBLIC_TO_EVERYONE", commercialContentOwnBrand:true}`, `youtubeData {title, type:"short", privacy:"public", madeForKids:false, category:"SCIENCE_TECHNOLOGY", tags}`. Media = the raw.githubusercontent.com link of the final video, and `videoThumbnailUrl` = the raw.githubusercontent.com link of its cover jpg.
 
 ## Log and report
 Append one line per video to `kit/LOG.md`: `<post date> <time> | topic <n> | <hook> | <file>` and push.
