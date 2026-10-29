@@ -9,7 +9,9 @@ from scipy.signal import butter, lfilter, sosfilt
 SR = 44100
 BPM = 120
 BEAT = 60 / BPM
-DUR = 16.0
+import os
+BARS = int(os.environ.get('BARS', '8'))
+DUR = BARS * 2.0
 N = int(SR * DUR)
 rng = np.random.default_rng(7)
 
@@ -110,7 +112,7 @@ def build(variant):
     fx = np.zeros(N)
     bar = 4 * BEAT
     K = kick()
-    for b in range(8):
+    for b in range(BARS):
         root_off, q = V["prog"][b % 4]
         root = V["key"] + root_off
         notes = chord(root, q)
@@ -151,7 +153,7 @@ def build(variant):
             place(lead, pl * env(pn, 0.002, 0.07) * 0.35, ts + BEAT * 0.75, g)  # dotted echo
 
     # riser into the drop (2.0 -> 4.0 s) and a smaller one before the end card (10.5 -> 12.0 s)
-    for (a, b, g) in ((2.0, 4.0, 0.35), (10.5, 12.0, 0.25)):
+    for (a, b, g) in ((2.0, 4.0, 0.35), (DUR - 5.5, DUR - 4.0, 0.25)):
         n = int((b - a) * SR)
         x = rng.standard_normal(n)
         out = np.zeros(n)
@@ -161,7 +163,7 @@ def build(variant):
             out[i:i + chunk] = bp(x[i:i + chunk], f * 0.7, min(f * 1.3, 20000))
         place(fx, out * np.linspace(0, 1, n) ** 2, a, g)
     # impacts
-    for t in (4.0, 12.0):
+    for t in (4.0, DUR - 4.0):
         n = int(1.2 * SR)
         tt = np.arange(n) / SR
         boom = np.sin(2 * np.pi * (38 + 50 * np.exp(-tt * 10)) * tt) * np.exp(-tt * 3)
@@ -170,7 +172,7 @@ def build(variant):
 
     # sidechain duck pads/bass/lead to the kick
     duck = np.ones(N)
-    for b in range(2, 8):
+    for b in range(2, BARS):
         for beat in range(4):
             i = int((b * bar + beat * BEAT) * SR)
             n = int(BEAT * SR)

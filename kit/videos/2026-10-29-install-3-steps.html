@@ -1,0 +1,43 @@
+<!doctype html><html><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="fx.css"><link rel="stylesheet" href="real.css">
+<style>
+/* Real screen-recording footage is laid over #ph by ffmpeg (left 40, top 620, 1000x562) — see render notes in PLAYBOOK. */
+#ph{position:absolute;left:34px;top:614px;width:1012px;height:574px;border-radius:24px;background:#0b1229;box-shadow:0 50px 120px rgba(0,0,0,.65),0 0 0 3px rgba(62,224,255,.35);opacity:0}
+.subt{position:absolute;left:60px;right:60px;top:1290px;text-align:center;font-family:"Inter Display","Inter",sans-serif;font-weight:800;font-size:58px;line-height:1.2;opacity:0}
+.subt b{color:#FFC21A}
+.step{position:absolute;left:60px;right:60px;top:220px;text-align:center;opacity:0}
+.step .n{display:inline-flex;width:120px;height:120px;border-radius:50%;background:#FFC21A;color:#14110a;font-size:72px;font-weight:900;align-items:center;justify-content:center;margin-bottom:22px}
+.step .t{font-family:"Inter Display","Inter",sans-serif;font-weight:900;font-size:80px;line-height:1.08;letter-spacing:-1.5px}
+.step .t b{color:#FFC21A}
+</style></head><body>
+<div class="bg"></div><div class="grid"></div>
+<div class="layer" id="h1" style="top:300px;opacity:1"><div class="h" id="h1t" style="font-size:100px">What is <b>SwiftGrab?</b></div></div>
+<div id="ph"></div>
+<div class="subt" id="s0">A <b>download manager</b> for Windows.</div>
+<div class="subt" id="s1">⚡ Makes your downloads <b>faster</b></div>
+<div class="subt" id="s2">🔁 Picks up where it stopped<br>if your <b>Wi-Fi drops</b></div>
+<div class="subt" id="s3">📂 Sorts every file into<br>the <b>right folder</b> for you</div>
+<div class="layer" id="mid" style="top:760px;opacity:1"><div class="h" id="midt" style="font-size:120px">Getting it takes <b>3 steps</b> 👇</div></div>
+<div class="step" id="st1"><div class="n">1</div><div class="t">Go to <b>getswiftgrab.com</b></div></div>
+<div class="step" id="st2"><div class="n">2</div><div class="t">Click <b>Download</b></div></div>
+<div class="step" id="st3"><div class="n">3</div><div class="t">Open it and click <b>Install</b></div></div>
+<div class="subt" id="f2" style="color:#3DDC97">Free for 30 days. No card needed.</div>
+<div class="subt" id="f3">Windows 10 &amp; 11 · signed by the developer</div>
+<script src="lib.js"></script><script src="fx.js"></script><script src="realfx.js"></script><script>
+chrome(); endcard2('That\'s it. <b>Try it free.</b>');
+['#h1t', '#midt'].forEach(s => splitWords($(s)));
+const parts = makeParticles(70, 23);
+function frame(t) {
+  common(t); beatBg(t); streaks(t); flash(t, [8.0, 20.0]); wipe(t, t < 9 ? 8.0 : (t < 15 ? 10.0 : (t < 18.5 ? 17.0 : 20.0)));
+  $('#h1').style.display = t < 8 ? '' : 'none'; words($('#h1'), t, .15, .14, 7.9);
+  const showPh = (t > .3 && t < 7.95) || (t > 10.05 && t < 19.95);
+  $('#ph').style.opacity = showPh ? 1 : 0;
+  [['#s0', .5, 3.0], ['#s1', 3.0, 4.6], ['#s2', 4.6, 6.3], ['#s3', 6.3, 7.95]].forEach(([s, a, b]) => show($(s), t, a, b, .25));
+  $('#mid').style.display = t > 8 && t < 10 ? '' : 'none'; words($('#mid'), t, 8.05, .1, 9.95);
+  [['#st1', 10.0, 12.95], ['#st2', 13.0, 16.95], ['#st3', 17.0, 19.95]].forEach(([s, a, b]) => {
+    const el = $(s); if (t < a || t > b) { el.style.opacity = 0; return; } pop(el, t, a, b);
+    el.querySelector('.n').style.transform = `scale(${1 + pulse(t) * .08})`; });
+  show($('#f2'), t, 13.6, 16.95, .25); show($('#f3'), t, 17.6, 19.95, .25);
+  if (t < 12) burst(parts, t, 8.05, 540, 900); else burst(parts, t, 20.0, 540, 760);
+  if (t >= 20) { pop($('#end'), t, 20.0, null, .55); $('#end').style.transform += ` scale(${1 + pulse(t) * .025})`; } else $('#end').style.opacity = 0;
+}
+</script></body></html>
