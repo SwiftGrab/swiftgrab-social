@@ -1,0 +1,39 @@
+/* Real-app look: screenshots of the actual SwiftGrab app and add-on, plus dialogs drawn in the app's own dark style. */
+.shot{position:absolute;border-radius:22px;overflow:hidden;box-shadow:0 50px 120px rgba(0,0,0,.65),0 0 0 2px rgba(255,255,255,.08);transform-origin:50% 50%;opacity:0}
+.shot img{display:block;width:100%}
+.ring{position:absolute;border:6px solid #FFC21A;border-radius:14px;box-shadow:0 0 0 9999px rgba(10,16,36,.0),0 0 40px rgba(255,194,26,.7);opacity:0;pointer-events:none}
+.qt{position:absolute;width:880px;box-sizing:border-box;background:#2b2b2b;color:#e8e8e8;border:1px solid #3c3c3c;border-radius:14px;
+  box-shadow:0 40px 100px rgba(0,0,0,.7);font-family:"Segoe UI","Inter",sans-serif;opacity:0;overflow:hidden}
+.qt .tb{height:64px;display:flex;align-items:center;gap:14px;padding:0 22px;font-size:28px;background:#202020;border-bottom:1px solid #3a3a3a}
+.qt .tb img{width:34px;height:34px}
+.qt .tb .x{margin-left:auto;font-size:30px;color:#bbb}
+.qt .bd{padding:34px 36px 30px}
+.qt .t1{font-size:38px;font-weight:700}
+.qt .t2{font-size:30px;color:#bdbdbd;margin-top:14px;line-height:1.4}
+.qt .row{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
+.qt .b{font-size:27px;padding:14px 20px;border-radius:8px;background:#3a3a3a;border:1px solid #4a4a4a;color:#f0f0f0}
+.qt .b.def{background:#2F7BFF;border-color:#2F7BFF}
+.qt .b.hot{background:#FFC21A;color:#14110a;border-color:#FFC21A;box-shadow:0 0 0 7px rgba(255,194,26,.3)}
+.qt .chk{font-size:26px;color:#bdbdbd;margin-top:24px}
+.cap{position:absolute;left:60px;right:60px;text-align:center;font-family:"Inter Display","Inter",sans-serif;font-weight:900;font-size:64px;line-height:1.1;letter-spacing:-1px;opacity:0}
+.cap b{color:#FFC21A}.cap .g{color:#3DDC97}
+.page{position:absolute;width:960px;border-radius:24px;overflow:hidden;background:#f8fafc;color:#0f172a;box-shadow:0 40px 100px rgba(0,0,0,.6);opacity:0}
+.page .ub{height:72px;background:#e2e8f0;display:flex;align-items:center;gap:12px;padding:0 24px}
+.page .ub i{width:18px;height:18px;border-radius:50%;background:#cbd5e1;display:block}
+.page .ub .u{flex:1;height:42px;border-radius:21px;background:#fff;margin-left:14px;font-size:22px;color:#64748b;display:flex;align-items:center;padding:0 20px}
+.player{margin:36px;height:420px;border-radius:18px;background:linear-gradient(135deg,#1e3a8a,#0f172a);position:relative;overflow:hidden}
+.player .pl{position:absolute;left:50%;top:50%;width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;background:rgba(255,255,255,.9)}
+.player .pl:after{content:"";position:absolute;left:46px;top:34px;border-left:42px solid #0f172a;border-top:26px solid transparent;border-bottom:26px solid transparent}
+.player .bar2{position:absolute;left:24px;right:24px;bottom:24px;height:8px;border-radius:4px;background:rgba(255,255,255,.3)}
+.player .bar2 i{display:block;height:100%;width:35%;background:#ef4444;border-radius:4px}
+.page h5{margin:0 36px;font-size:40px}
+.page p{margin:12px 36px 36px;font-size:28px;color:#475569}
+.files{position:absolute;width:900px;border-radius:20px;background:#1f1f1f;border:1px solid #333;box-shadow:0 40px 90px rgba(0,0,0,.6);font-family:"Segoe UI","Inter",sans-serif;opacity:0;overflow:hidden}
+.files .hd{background:#2b2b2b;padding:20px 28px;font-size:28px;color:#ddd;border-bottom:1px solid #3a3a3a}
+.files .f{display:flex;align-items:center;gap:20px;padding:22px 28px;font-size:34px;color:#eee;border-bottom:1px solid #2c2c2c}
+.files .f span{margin-left:auto;font-size:28px;color:#999}
+.price{display:inline-block;vertical-align:top;width:430px;margin:0 14px;box-sizing:border-box;padding:40px 36px;border-radius:30px;background:#121B3A;border:3px solid rgba(62,224,255,.4);text-align:left}
+.price .n{font-size:40px;font-weight:900}.price .p{font-family:"Inter Display","Inter",sans-serif;font-size:96px;font-weight:900;margin:14px 0 4px;color:#FFC21A}
+.price .s{font-size:30px;color:#A7B3D6}
+.sub-card{position:absolute;width:560px;padding:28px 34px;border-radius:22px;background:#2a1215;border:3px solid #ef4444;font-size:38px;font-weight:800;display:flex;justify-content:space-between;opacity:0}
+.sub-card span{color:#fca5a5}

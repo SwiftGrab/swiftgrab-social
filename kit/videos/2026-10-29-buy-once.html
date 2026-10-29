@@ -1,0 +1,40 @@
+<!doctype html><html><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="fx.css"><link rel="stylesheet" href="real.css"></head><body>
+<div class="bg"></div><div class="grid"></div>
+<div class="layer" id="h1" style="top:230px;opacity:1"><div class="h" id="h1t" style="font-size:92px">Another <b>monthly</b> subscription? 💸</div></div>
+<div id="subs"></div>
+<div class="cap" id="tot" style="top:1560px;color:#fca5a5">$0 a year</div>
+<div class="layer" id="h2" style="top:230px;opacity:1"><div class="h" id="h2t" style="font-size:92px">SwiftGrab: <b>buy once</b>, keep it.</div></div>
+<div class="layer" id="prices" style="top:640px"><div style="width:1000px"><div class="price" id="p0"><div class="n">Single PC</div><div class="p">$19.99</div><div class="s">one time · 1 PC</div></div><div class="price" id="p1"><div class="n">Family</div><div class="p">$29.99</div><div class="s">one time · 3 PCs</div></div></div></div>
+<div class="cap" id="nosub" style="top:1120px;font-size:56px"><span class="g">No subscription. Ever.</span></div>
+<div class="layer" id="h3" style="top:230px;opacity:1"><div class="h" id="h3t" style="font-size:90px">Everything <b>included</b></div></div>
+<div class="layer" id="feats" style="top:560px"><div style="width:980px;text-align:left">
+ <div class="chip" id="f0" style="display:block">⚡ 8 connections per download</div><div class="chip" id="f1" style="display:block">🔁 Resumes after Wi-Fi drops</div>
+ <div class="chip" id="f2" style="display:block">📂 Auto-sorted folders</div><div class="chip" id="f3" style="display:block">🌙 Scheduler &amp; speed limit</div>
+ <div class="chip" id="f4" style="display:block">🚫 No ads · 🔒 No tracking</div></div></div>
+<div class="cap" id="trial" style="top:1560px;font-size:56px">Try it <b>free for 30 days</b> first</div>
+<script src="lib.js"></script><script src="fx.js"></script><script src="realfx.js"></script><script>
+chrome(); endcard2('Pay once. <b>Download forever.</b>');
+['#h1t', '#h2t', '#h3t'].forEach(s => splitWords($(s)));
+const SUBS = [['Video streaming', 15.49], ['Music', 10.99], ['Cloud storage', 9.99], ['Photo editor', 11.99], ['VPN', 12.95], ['Another app…', 7.99]];
+const subs = SUBS.map((s, i) => { const d = document.createElement('div'); d.className = 'sub-card'; d.innerHTML = `${s[0]}<span>$${s[1]}/mo</span>`;
+  d.style.left = (i % 2 ? 430 : 90) + 'px'; d.style.top = (680 + i * 135) + 'px'; $('#subs').appendChild(d); return d; });
+const parts = makeParticles(70, 17);
+function frame(t) {
+  common(t); beatBg(t); streaks(t); flash(t, [4.0, 12.0]); wipe(t, t < 6 ? 4.0 : 8.0);
+  $('#h1').style.display = t < 4 ? '' : 'none'; words($('#h1'), t, .15, .12, 3.9);
+  $('#h2').style.display = t > 4 && t < 8 ? '' : 'none'; words($('#h2'), t, 4.05, .1, 7.9);
+  $('#h3').style.display = t > 8 && t < 12 ? '' : 'none'; words($('#h3'), t, 8.05, .12, 11.9);
+  let sum = 0;
+  subs.forEach((d, i) => { if (t >= 4) { d.style.opacity = 0; return; } const a = .5 + i * .42; pop(d, t, a, 3.95);
+    d.style.transform += ` rotate(${(i % 2 ? 3 : -3) + (t > 3 ? Math.sin(t * 30 + i) * 2 : 0)}deg)`; if (t >= a + .2) sum += SUBS[i][1] * 12; });
+  show($('#tot'), t, .9, 3.95); $('#tot').textContent = '$' + sum.toFixed(2) + ' a year 😬';
+  if (t > 4 && t < 8) { $('#prices').style.opacity = 1 - seg(t, 7.7, 7.95); for (let i = 0; i < 2; i++) { const el = $('#p' + i); pop(el, t, 4.4 + i * .5); el.style.transform += ` scale(${1 + pulse(t) * .04})`; } }
+  else $('#prices').style.opacity = 0;
+  show($('#nosub'), t, 5.6, 7.95);
+  if (t > 8 && t < 12) { $('#feats').style.opacity = 1 - seg(t, 11.7, 11.95); for (let i = 0; i < 5; i++) { const el = $('#f' + i); const x = seg(t, 8.4 + i * .5, 8.8 + i * .5);
+      el.style.opacity = clamp(x * 2); el.style.transform = `translateX(${(1 - easeBack(x)) * -300}px)`; } } else $('#feats').style.opacity = 0;
+  show($('#trial'), t, 10.9, 11.95);
+  if (t < 8) burst(parts, t, 4.45, 540, 820); else if (t < 12) burst(parts, t, 10.9, 540, 1560); else burst(parts, t, 12.0, 540, 760);
+  if (t >= 12) { pop($('#end'), t, 12.0, null, .55); $('#end').style.transform += ` scale(${1 + pulse(t) * .025})`; } else $('#end').style.opacity = 0;
+}
+</script></body></html>

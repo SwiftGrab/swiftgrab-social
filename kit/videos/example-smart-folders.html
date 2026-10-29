@@ -1,0 +1,81 @@
+<!doctype html><html><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="fx.css"></head><body>
+<div class="bg"></div><div class="grid"></div>
+<div class="layer" id="h1" style="top:230px;opacity:1"><div class="h" id="h1t">Is your <b>Downloads</b> folder a mess?</div></div>
+<div class="layer" id="cnt" style="top:1600px"><div class="sub" style="font-size:52px;color:#fca5a5;font-weight:900" id="cntv">2,481 files</div></div>
+<div class="layer" id="h2" style="top:230px;opacity:1"><div class="h" id="h2t" style="font-size:88px">SwiftGrab <b>sorts</b> every download ⚡</div></div>
+<div id="tiles"></div><div id="folders"></div>
+<div class="layer" id="h3" style="top:250px;opacity:1"><div class="h" id="h3t" style="font-size:90px">Already have it? <b>It asks.</b></div></div>
+<div class="layer" id="dlg" style="top:640px"><div class="dlg"><div class="t"><img src="icon.svg">Already downloaded</div>
+ <div class="d">You already have <b style="color:#fff">holiday-trip.mp4</b><br>in Downloads\Video</div>
+ <div class="btns"><div class="btn">Download again</div><div class="btn" id="skip">Skip</div><div class="btn">Open file</div></div></div></div>
+<div class="layer" id="dups" style="top:1260px"><div class="sub" style="font-size:46px;color:#EEF3FF;font-weight:800;line-height:1.6">
+ <div id="d1">holiday-trip (1).mp4</div><div id="d2">holiday-trip (2).mp4</div><div id="d3" class="green" style="font-size:54px">No more copies ✓</div></div></div>
+<div class="cursor" id="cur"></div>
+<script src="lib.js"></script><script src="fx.js"></script><script>
+chrome(); endcard2('Downloads that <b>sort themselves</b>'); $('#cur').innerHTML = CURSOR;
+['#h1t', '#h2t', '#h3t'].forEach(s => splitWords($(s)));
+const F = [['🎬', 'Video'], ['🎵', 'Music'], ['🖼️', 'Images'], ['📦', 'Compressed'], ['📄', 'Documents'], ['💿', 'Programs']];
+const FX = [45, 390, 735], FY = [720, 1060];
+const fol = F.map((f, i) => { const d = document.createElement('div'); d.className = 'folder';
+  d.innerHTML = `<div class="e">${f[0]}</div><div class="l">${f[1]}</div><div class="c">0</div>`;
+  d.style.left = FX[i % 3] + 'px'; d.style.top = FY[Math.floor(i / 3)] + 'px'; $('#folders').appendChild(d); return { d, n: 0 }; });
+const files = [['🎬', 'vacation.mp4', 0], ['🎵', 'song.mp3', 1], ['🖼️', 'photo.jpg', 2], ['📦', 'backup.zip', 3], ['📄', 'invoice.pdf', 4], ['💿', 'setup.exe', 5],
+  ['🎬', 'clip.mkv', 0], ['🎵', 'podcast.m4a', 1], ['🖼️', 'screen.png', 2], ['📦', 'project.rar', 3], ['📄', 'notes.docx', 4], ['💿', 'driver.msi', 5],
+  ['🖼️', 'wallpaper.webp', 2], ['📦', 'photos.7z', 3]];
+const r = rnd(42);
+const tiles = files.map((f, i) => { const d = document.createElement('div'); d.className = 'tile';
+  d.innerHTML = `<div class="e">${f[0]}</div><div class="n">${f[1]}</div>`; $('#tiles').appendChild(d);
+  return { d, f: f[2], x: 40 + r() * 790, y: 620 + r() * 860, rot: (r() - .5) * 40, ph: r() * 6, at: 4.3 + i * 0.22 }; });
+const parts = makeParticles(60, 3);
+function frame(t) {
+  common(t); beatBg(t); streaks(t); flash(t, [4.0, 12.0]); wipe(t, t < 6 ? 4.0 : 8.0);
+  words($('#h1'), t, .15, .14, 3.9);
+  $('#h2').style.display = t > 4 && t < 8 ? '' : 'none'; words($('#h2'), t, 4.05, .1, 7.9);
+  $('#h3').style.display = t > 8 && t < 12 ? '' : 'none'; words($('#h3'), t, 8.05, .1, 11.9);
+  $('#h1').style.display = t < 4 ? '' : 'none';
+  show($('#cnt'), t, 1.2, 3.9); $('#cntv').textContent = Math.round(lerp(812, 2481, ease(seg(t, 1.2, 3.2)))).toLocaleString('en-US') + ' files 😩';
+  // folders
+  fol.forEach((f, i) => { f.n = 0; });
+  tiles.forEach((p, i) => {
+    const d = p.d;
+    if (t < 4) {   // messy, jiggling
+      const k = pop(d, t, .3 + i * .1, null, .35);
+      d.style.left = p.x + 'px'; d.style.top = p.y + Math.sin(t * 3 + p.ph) * 14 + 'px';
+      d.style.transform += ` rotate(${p.rot + Math.sin(t * 4 + p.ph) * 6}deg)`;
+    } else {
+      const k = seg(t, p.at, p.at + .55), e = ease(k);
+      const fx = FX[p.f % 3] + 25, fy = FY[Math.floor(p.f / 3)] + 30;
+      const arc = -260 * Math.sin(Math.PI * k);
+      d.style.left = lerp(p.x, fx, e) + 'px'; d.style.top = lerp(p.y, fy, e) + arc + 'px';
+      d.style.transform = `scale(${lerp(1, .35, e)}) rotate(${lerp(p.rot, 0, e) + k * 360}deg)`;
+      d.style.opacity = t > 8 || k >= 1 ? 0 : 1;
+      if (k >= 1) fol[p.f].n++;
+    }
+  });
+  fol.forEach((f, i) => {
+    if (t < 3.6 || t > 8) { f.d.style.opacity = 0; return; }
+    pop(f.d, t, 3.7 + i * .06, 7.95);
+    const last = Math.max(0, ...tiles.filter(p => p.f === i && t >= p.at + .55).map(p => p.at + .55));
+    const b = last ? Math.exp(-(t - last) * 9) : 0;
+    f.d.style.transform += ` scale(${1 + b * .18 + pulse(t) * .03})`;
+    f.d.style.borderColor = b > .2 ? '#FFC21A' : 'rgba(62,224,255,.35)';
+    f.d.querySelector('.c').textContent = f.n ? (f.n * 37 + i * 11) : '0';
+  });
+  // duplicate check
+  if (t > 8 && t < 12) {
+    pop($('#dlg').firstElementChild, t, 8.4, 11.9); $('#dlg').style.opacity = 1;
+  } else $('#dlg').style.opacity = 0;
+  const c = $('#cur'); c.style.opacity = t > 9 && t < 11 ? 1 : 0;
+  const ce = ease(seg(t, 9.1, 9.8)); c.style.left = lerp(980, 480, ce) + 'px'; c.style.top = lerp(1500, 1010, ce) + 'px';
+  const clicked = t > 9.95; $('#skip').className = clicked ? 'btn hot' : 'btn';
+  if (t > 9.95 && t < 10.15) c.style.transform = 'scale(.85)'; else c.style.transform = '';
+  $('#dups').style.opacity = t > 10 && t < 12 ? 1 - seg(t, 11.7, 11.95) : 0;
+  ['#d1', '#d2'].forEach((s, k) => { const x = seg(t, 10.1 + k * .25, 10.4 + k * .25);
+    $(s).style.opacity = clamp(x * 2); $(s).style.textDecoration = t > 10.6 + k * .25 ? 'line-through' : 'none'; $(s).style.color = t > 10.6 + k * .25 ? '#6f7db0' : '#EEF3FF'; });
+  pop($('#d3'), t, 11.0); $('#d3').style.display = 'block';
+  if (t < 12) burst(parts, t, 11.05, 540, 1420);
+  // end card
+  if (t >= 12) { pop($('#end'), t, 12.0, null, .55); $('#end').style.transform += ` scale(${1 + pulse(t) * .025})`; } else $('#end').style.opacity = 0;
+  if (t >= 12) burst(parts, t, 12.0, 540, 760);
+}
+</script></body></html>

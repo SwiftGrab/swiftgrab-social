@@ -1,0 +1,53 @@
+<!doctype html><html><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="fx.css"></head><body>
+<div class="bg"></div><div class="grid"></div>
+<div class="layer" id="h1" style="top:230px;opacity:1"><div class="h" id="h1t">Click <b>download</b> in your browser…</div></div>
+<div class="layer" id="web" style="top:720px"><div class="web"><div class="bar"><i></i><i></i><i></i><div class="u">example.com/downloads</div></div>
+ <div class="body"><h4>Project files</h4><p>project-files.zip · 4.2 GB</p><div class="dl" id="dlb">⬇ Download</div></div></div></div>
+<div class="layer" id="h2" style="top:230px;opacity:1"><div class="h" id="h2t" style="font-size:88px"><b>SwiftGrab</b> catches it ⚡</div></div>
+<div class="layer" id="dlg" style="top:620px"><div class="dlg"><div class="t"><img src="icon.svg">New download</div>
+ <div class="d"><b style="color:#fff">project-files.zip</b> · 4.2 GB<br>Save to: Downloads\Compressed</div>
+ <div class="btns"><div class="btn">Change folder</div><div class="btn pri" id="start">Start download</div></div>
+ <div class="segs" id="segs" style="margin-top:40px"></div></div></div>
+<div class="layer" id="spd" style="top:1240px"><div class="big" id="spdv">0.0</div><div class="sub" style="margin-top:0;font-size:52px;font-weight:900;color:#EEF3FF">MB/s</div></div>
+<div class="layer" id="h3" style="top:330px;opacity:1"><div class="h" id="h3t" style="font-size:92px">Works in your <b>browser</b></div></div>
+<div class="layer" id="chips" style="top:760px"><div style="width:900px"><span class="chip" id="c0">Chrome</span><span class="chip" id="c1">Edge</span><span class="chip" id="c2">Brave</span><span class="chip" id="c3">Firefox</span></div></div>
+<div class="layer" id="done" style="top:1240px"><div class="h green" style="font-size:120px">Done ✓</div><div class="sub">project-files.zip is ready</div></div>
+<div class="disc" id="disc">Illustration. Real speed depends on your connection and the server.</div>
+<div class="cursor" id="cur"></div>
+<script src="lib.js"></script><script src="fx.js"></script><script>
+chrome(); endcard2('One click. <b>Full speed.</b>'); $('#cur').innerHTML = CURSOR;
+['#h1t', '#h2t', '#h3t'].forEach(s => splitWords($(s)));
+const segs = $('#segs'); for (let i = 0; i < 8; i++) segs.appendChild(document.createElement('div')).appendChild(document.createElement('i'));
+const rate = [1, .86, .93, .8, .97, .84, .9, .88];
+const parts = makeParticles(60, 9);
+function frame(t) {
+  common(t); beatBg(t); streaks(t); flash(t, [4.0, 12.0]); wipe(t, t < 6 ? 4.0 : 8.0);
+  $('#h1').style.display = t < 4 ? '' : 'none'; words($('#h1'), t, .15, .13, 3.9);
+  $('#h2').style.display = t > 4 && t < 8 ? '' : 'none'; words($('#h2'), t, 4.05, .1, 7.9);
+  $('#h3').style.display = t > 8 && t < 12 ? '' : 'none'; words($('#h3'), t, 8.05, .1, 11.9);
+  // browser page + click
+  if (t < 4) { pop($('#web').firstElementChild, t, .5, 3.95); $('#web').style.opacity = 1; } else $('#web').style.opacity = 0;
+  const c = $('#cur'); const ce = ease(seg(t, 1.6, 2.6));
+  let cx, cy, cv = 0;
+  if (t < 4) { cx = lerp(980, 260, ce); cy = lerp(1600, 1150, ce); cv = t > 1.6 ? 1 : 0; }
+  else if (t < 8) { const k = ease(seg(t, 4.6, 5.3)); cx = lerp(980, 700, k); cy = lerp(1500, 940, k); cv = t > 4.6 && t < 6.2 ? 1 : 0; }
+  c.style.opacity = cv; c.style.left = cx + 'px'; c.style.top = cy + 'px';
+  const press = (t > 2.9 && t < 3.1) || (t > 5.5 && t < 5.7); c.style.transform = press ? 'scale(.85)' : '';
+  $('#dlb').style.transform = t > 2.9 && t < 3.2 ? 'scale(.94)' : `scale(${1 + Math.sin(t * 6) * .02})`;
+  $('#dlb').style.boxShadow = t > 2.9 ? '0 0 0 14px rgba(22,163,74,.3)' : 'none';
+  // download window
+  if (t > 4 && t < 8) { pop($('#dlg').firstElementChild, t, 4.1, 7.95); $('#dlg').style.opacity = 1; } else $('#dlg').style.opacity = 0;
+  $('#start').className = t > 5.55 ? 'btn hot' : 'btn pri';
+  let tot = 0; segs.querySelectorAll('i').forEach((e, i) => { const p = clamp(seg(t, 5.7, 7.7) / rate[i] * .88); e.style.width = p * 100 + '%'; tot += p; });
+  if (t > 5.6 && t < 8) { $('#spd').style.opacity = 1 - seg(t, 7.75, 7.95); pop($('#spdv'), t, 5.6);
+    const v = lerp(0, 38.2, ease(seg(t, 5.7, 6.6))) + (t > 6.6 ? Math.sin(t * 9) * .6 : 0);
+    $('#spdv').textContent = v.toFixed(1); $('#spdv').style.transform += ` scale(${1 + pulse(t) * .06})`; } else $('#spd').style.opacity = 0;
+  show($('#disc'), t, 5.7, 7.9);
+  // browsers
+  if (t > 8 && t < 12) { $('#chips').style.opacity = 1 - seg(t, 11.7, 11.95);
+    for (let i = 0; i < 4; i++) { const el = $('#c' + i); pop(el, t, 8.5 + i * .5); el.style.transform += ` scale(${1 + pulse(t) * .05})`; } } else $('#chips').style.opacity = 0;
+  if (t > 10.4 && t < 12) { show($('#done'), t, 10.5, 11.95); } else $('#done').style.opacity = 0;
+  if (t < 12) burst(parts, t, 10.5, 540, 1300); else burst(parts, t, 12.0, 540, 760);
+  if (t >= 12) { pop($('#end'), t, 12.0, null, .55); $('#end').style.transform += ` scale(${1 + pulse(t) * .025})`; } else $('#end').style.opacity = 0;
+}
+</script></body></html>

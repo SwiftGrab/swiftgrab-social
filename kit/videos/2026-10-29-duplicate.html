@@ -1,0 +1,53 @@
+<!doctype html><html><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="fx.css"><link rel="stylesheet" href="real.css"></head><body>
+<div class="bg"></div><div class="grid"></div>
+<div class="layer" id="h1" style="top:230px;opacity:1"><div class="h" id="h1t" style="font-size:90px">Downloaded the same file <b>twice… again?</b> 😩</div></div>
+<div class="files" id="files" style="left:90px;top:760px"><div class="hd">📁 Downloads › Video</div>
+ <div class="f">🎬 holiday-trip.mp4<span>1.2 GB</span></div>
+ <div class="f" id="r1">🎬 holiday-trip (1).mp4<span>1.2 GB</span></div>
+ <div class="f" id="r2">🎬 holiday-trip (2).mp4<span>1.2 GB</span></div>
+ <div class="f" id="r3">🎬 holiday-trip (3).mp4<span>1.2 GB</span></div></div>
+<div class="cap" id="waste" style="top:1500px;color:#fca5a5">3.6 GB wasted</div>
+<div class="layer" id="h2" style="top:250px;opacity:1"><div class="h" id="h2t" style="font-size:96px">SwiftGrab <b>checks first</b> ✋</div></div>
+<div class="shot" id="app" style="left:40px;top:560px;width:1000px"><img src="screens/app-main.webp"><div class="ring" id="rg"></div></div>
+<div class="qt" id="dlg" style="left:100px;top:1150px"><div class="tb"><img src="icon.svg">SwiftGrab<span class="x">✕</span></div>
+ <div class="bd"><div class="t1">You already downloaded this file</div>
+ <div class="t2">Holiday trip 2026.mp4 · 1.2 GB<br>in Downloads\Video</div>
+ <div class="row"><div class="b">Download again</div><div class="b">Skip</div><div class="b def" id="open">Open file</div><div class="b">Show in folder</div></div>
+ <div class="chk">☐ Don't ask again</div></div></div>
+<div class="cap" id="c2" style="top:1240px">Opens the copy <b>you already have</b> <span class="g">✓</span></div>
+<div class="cap" id="c3" style="top:1440px;font-size:46px;color:#A7B3D6;font-weight:700">No copies. No wasted space.</div>
+<div class="cursor" id="cur"></div>
+<script src="lib.js"></script><script src="fx.js"></script><script src="realfx.js"></script><script>
+chrome(); endcard2('Download it <b>once</b>. Find it <b>always</b>.'); $('#cur').innerHTML = CURSOR;
+['#h1t', '#h2t'].forEach(s => splitWords($(s)));
+const parts = makeParticles(60, 5);
+function frame(t) {
+  common(t); beatBg(t); streaks(t); flash(t, [4.0, 12.0]); wipe(t, t < 6 ? 4.0 : 8.0);
+  $('#h1').style.display = t < 4 ? '' : 'none'; words($('#h1'), t, .15, .12, 3.9);
+  $('#h2').style.display = t > 4 && t < 12 ? '' : 'none'; words($('#h2'), t, 4.05, .12, 11.9);
+  // hook: copies pile up
+  if (t < 4) { pop($('#files'), t, .4, 3.95);
+    ['#r1', '#r2', '#r3'].forEach((s, i) => { const x = seg(t, 1.1 + i * .45, 1.4 + i * .45); const e = $(s);
+      e.style.opacity = clamp(x * 2); e.style.transform = `translateX(${(1 - easeBack(x)) * -200}px)`; e.style.background = x > .5 ? 'rgba(239,68,68,.18)' : 'none'; e.style.color = '#fca5a5'; });
+    show($('#waste'), t, 2.6, 3.95); $('#waste').textContent = (1.2 * Math.min(3, Math.floor(seg(t, 1.1, 2.6) * 3 + .001))).toFixed(1) + ' GB wasted';
+    $('#files').style.transform += ` translateX(${t > 2.8 ? Math.sin(t * 40) * 6 : 0}px)`;
+  } else { $('#files').style.opacity = 0; $('#waste').style.opacity = 0; }
+  // real app + duplicate prompt
+  const app = $('#app');
+  if (t > 4 && t < 12) {
+    app.style.opacity = Math.min(ease(seg(t, 4.1, 4.4)), 1 - ease(seg(t, 11.7, 11.95)));
+    const A = [1, 800, 375, 540, 795], B = [1.9, 84, 130, 210, 640], C = [1.9, 300, 279, 300, 860];
+    if (t < 9.3) cam(app, A, B, seg(t, 4.3, 5.0)); else cam(app, B, C, seg(t, 9.3, 9.9));
+  } else app.style.opacity = 0;
+  const c = $('#cur');
+  if (t < 8) { const p = at(app, 84, 130); cursorMove(c, t, 4.4, 5.2, [960, 1700], p, 7.99); }
+  else { const r = $('#open').getBoundingClientRect(); const p = [r.left + r.width * .5, r.top + r.height * .55];
+    cursorMove(c, t, 8.2, 9.0, [700, 1650], p, 9.6); }
+  if (t > 5.4 && t < 9.6) { pop($('#dlg'), t, 5.4, 9.6); } else $('#dlg').style.opacity = 0;
+  $('#open').className = t > 9.0 ? 'b hot' : 'b def';
+  if (t > 9.6 && t < 12) ring($('#rg'), t, 9.6, 11.95, 278, 258, 1302, 42); else $('#rg').style.opacity = 0;
+  show($('#c2'), t, 9.8, 11.95); show($('#c3'), t, 10.4, 11.95);
+  if (t < 12) burst(parts, t, 9.7, 540, 1000); else burst(parts, t, 12.0, 540, 760);
+  if (t >= 12) { pop($('#end'), t, 12.0, null, .55); $('#end').style.transform += ` scale(${1 + pulse(t) * .025})`; } else $('#end').style.opacity = 0;
+}
+</script></body></html>
