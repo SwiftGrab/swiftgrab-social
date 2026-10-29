@@ -1,0 +1,81 @@
+# SwiftGrab daily video playbook
+
+Every day: make **3 new vertical videos** (1080×1920, 16 s, 30 fps, with music) that show the **real** SwiftGrab app,
+upload them to this repo, and schedule them in Metricool for **tomorrow** on Instagram (Reel), Facebook (Reel), TikTok and YouTube (Short).
+
+Owner: Sevada (salesswiftgrab@gmail.com). Prefers short, simple English. Timezone America/Los_Angeles.
+Metricool brand id **7635540**. Website **getswiftgrab.com**. Product: SwiftGrab, a download manager for Windows 10 & 11.
+
+## Facts you may use (never invent others)
+- 30-day free trial with every feature. Then buy once, keep it, no subscription: **Single PC $19.99**, **Family $29.99 (3 PCs)**.
+- Downloads split into parts with up to 8 connections at once; resume after Wi-Fi drops or a restart; queue and **scheduler**; **speed limit**.
+- Auto-sorts downloads into Downloads\Video, Music, Images, Compressed, Documents, Programs.
+- Duplicate check: asks before downloading the same file again (Download again / Skip / Open file / Show in folder).
+- Browser add-on for Chrome, Edge, Brave and Firefox: catches browser downloads; popup shows media found on the page with Best quality; "Save all images" from this tab / tabs to the right / all tabs.
+- Clipboard watch: copy a download link and SwiftGrab offers to download it.
+- Digitally signed (Windows shows a verified publisher), updates itself (app and add-on), no ads, no tracking.
+
+## Rules
+- Show the **real app**: use the screenshots in `kit/screens/` (app-main, addon-popup, addon-settings, app-license, tut-*). Dialogs not in a screenshot are drawn in the app's dark style with `real.css` (`.qt`). Logo/icon only from `kit/logo.svg` / `kit/icon.svg`.
+- Made-up websites and file names only (example.com style). No real brands' logos, no real people, no copyrighted music (use `kit/music.py`).
+- **Never** advertise downloading from YouTube, Instagram, TikTok or other named platforms, and never say it bypasses limits or paywalls. Video-saving scenes carry the small line "Only download videos you have the right to save."
+- Speed numbers on screen get the small line "Illustration. Real speed depends on your connection and the server."
+- Every caption contains the website and download lines (see Captions).
+
+## Topics (rotate; pick the 3 least recently used in `kit/LOG.md`, all different)
+1. Resume after Wi-Fi drops (78% → continues, even after restart)
+2. Speed: one big file in 8 parts at once, live MB/s
+3. Scheduler: queue big downloads for tonight, wake up to everything done
+4. Save every picture on a page (this tab / tabs to the right / all tabs)
+5. Clipboard watch: copy a link, SwiftGrab is ready
+6. Speed limit: download keeps going, video call/game stays smooth
+7. Smart folders: auto-sorted into Video, Music, Images…
+8. Duplicate check: opens the copy you already have
+9. The video on a page, Best quality, one click (with the "right to save" line)
+10. Buy once, no subscription (real prices)
+11. Browser integration: click Download in the browser, SwiftGrab takes over
+12. Trust: signed, verified publisher, auto-updates, no ads, no tracking
+13. Easy setup in 4 steps: download → install → add-on → pairing code (use tut-* screenshots)
+14. 30-day free trial, every feature
+15. Pause & resume many downloads / the queue (main window with several rows)
+Vary the hook each time; never reuse a hook sentence that is already in LOG.md.
+
+## How to build a video
+1. Copy a recent file in `kit/videos/` (the 2026-10-29-*.html ones show the real-screenshot style; `example-*.html` show pure motion graphics) to `kit/videos/<YYYY-MM-DD>-<slug>.html` (date = posting day). Keep `<base href="../">`.
+2. Structure (120 BPM, beat = 0.5 s; the music drops at 4.0 s and hits again at 12.0 s):
+   - 0–4 s **hook**: the problem, big words flying in (`words()`), a simple prop.
+   - 4–8 s **SwiftGrab solves it**: real screenshot with `cam()` zoom, `ring()` highlight, cursor clicks (`cursorMove()`, `at()` for exact targets).
+   - 8–12 s **result / proof**: what the user gets, chips or a checklist, confetti `burst()`.
+   - 12–16 s **end card**: `endcard2('<short tagline with <b>highlight</b>>')` (logo, "Try it free for 30 days", getswiftgrab.com).
+   Helpers: `kit/lib.js`, `kit/fx.js`, `kit/realfx.js` (screenshot coordinates are documented at its top). Text must stay inside 60 px side margins and never overlap.
+3. Check: `node kit/stills.js kit/videos/<file>.html /tmp/x 2.5 5 7 10 13.5`, put the stills side by side in one image and **look at it**. Fix cut-off or overlapping text, empty frames, rings in the wrong place.
+4. Render: `node kit/render.js kit/videos/<file>.html /tmp/<slug>_v.mp4` (≈1–2 min; run the three in parallel).
+5. Music: `python3 kit/music.py <n> /tmp/m<n>.wav` with a different n (1–6) for each of the day's 3 videos.
+6. Mix: `ffmpeg -y -i /tmp/<slug>_v.mp4 -i /tmp/m<n>.wav -map 0:v -map 1:a -c:v copy -af "loudnorm=I=-14:TP=-1.5:LRA=11" -ar 48000 -c:a aac -b:a 192k -shortest -movflags +faststart media/<YYYY-MM-DD>/swiftgrab-<slug>.mp4`
+   then `ffprobe` it: 1080×1920, h264 + aac, 16 s.
+
+## Upload
+`git add`, commit (message "Videos for <date>"), `git push`. Public link for Metricool:
+`https://raw.githubusercontent.com/SwiftGrab/swiftgrab-social/main/media/<YYYY-MM-DD>/swiftgrab-<slug>.mp4` — check it answers HTTP 200 with `curl -sI`.
+Delete `media/` folders older than 3 days in the same commit (Metricool keeps its own copy once scheduled).
+
+## Captions
+```
+<hook sentence with emoji> <1–2 sentences on the benefit>
+
+🌐 Website: getswiftgrab.com
+⬇️ Download free (30-day trial): getswiftgrab.com
+Windows 10 & 11
+
+<20–25 hashtags: start with #SwiftGrab #DownloadManager #Windows11 #Windows10 #PCTips #TechTips, then topic ones>
+```
+Titles under 60 characters: TikTok title, Facebook Reel title, YouTube title ending in "#shorts". YouTube tags: up to 15.
+
+## Schedule (Metricool)
+- `getScheduledPosts` for tomorrow; `getBestTimeToPostByNetwork` (instagram and tiktok) for tomorrow.
+- Tomorrow must end up with **3 posts in total**: if some already exist, only add the missing number. Times at least 2 h apart, between 9:00 and 21:00, preferring the best hours (default 10:00, 13:00, 18:00 when no data). Never touch existing posts.
+- `createScheduledPost` per video: providers instagram, facebook, tiktok, youtube; `instagramData {type:"REEL", showReelOnFeed:true}`, `facebookData {type:"REEL", title}`, `tiktokData {title, privacyOption:"PUBLIC_TO_EVERYONE", commercialContentOwnBrand:true}`, `youtubeData {title, type:"short", privacy:"public", madeForKids:false, category:"SCIENCE_TECHNOLOGY", tags}`. Media = the raw.githubusercontent.com link.
+
+## Log and report
+Append one line per video to `kit/LOG.md`: `<post date> <time> | topic <n> | <hook> | <file>` and push.
+Then send the owner ONE short message (SendUserMessage) with the 3 videos (SendUserFile, status "proactive") and the times they will post. If anything failed, say exactly what and what to do.
