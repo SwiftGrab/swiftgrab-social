@@ -9,3 +9,4 @@
 2026-11-02 10:00 | topic 4 | Save every picture on a page (older ad, already scheduled) | -
 2026-11-04 10:00 | topic 5 | Copy a download link (older ad, already scheduled) | -
 2026-11-06 10:00 | topic 6 | Big download freezing your video call? (older ad, already scheduled) | -
+2026-10-30 13:00 | topic 13 | What is SwiftGrab? Install it in 3 steps (real screen recording) | media/2026-10-30/swiftgrab-install-3-steps.mp4

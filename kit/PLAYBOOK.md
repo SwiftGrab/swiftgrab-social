@@ -54,6 +54,9 @@ Vary the hook each time; never reuse a hook sentence that is already in LOG.md.
 6. Mix: `ffmpeg -y -i /tmp/<slug>_v.mp4 -i /tmp/m<n>.wav -map 0:v -map 1:a -c:v copy -af "loudnorm=I=-14:TP=-1.5:LRA=11" -ar 48000 -c:a aac -b:a 192k -shortest -movflags +faststart media/<YYYY-MM-DD>/swiftgrab-<slug>.mp4`
    then `ffprobe` it: 1080×1920, h264 + aac, 16 s.
 
+## Real screen recordings (preferred when available)
+Recordings from the owner live in `recordings/` (never show personal folders, file names, bookmarks, antivirus popups, other apps). Cut and crop with ffmpeg into 1000×562 clips, render the graphics page with an empty frame (see `kit/videos/2026-10-29-install-3-steps.html`, element #ph at left 40, top 620), then lay the clips over it with ffmpeg `overlay=40:620:enable='between(t,a,b)'`. Longer music: `BARS=12 python3 kit/music.py <n> out.wav` gives 24 s (end-card hit at 20 s); render with `node kit/render.js <html> out.mp4 24`.
+
 ## Upload
 `git add`, commit (message "Videos for <date>"), `git push`. Public link for Metricool:
 `https://raw.githubusercontent.com/SwiftGrab/swiftgrab-social/main/media/<YYYY-MM-DD>/swiftgrab-<slug>.mp4` — check it answers HTTP 200 with `curl -sI`.
