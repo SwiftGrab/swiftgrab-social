@@ -81,8 +81,14 @@ Delete `media/` folders older than 3 days in the same commit (Metricool keeps it
 ⬇️ Download free (30-day trial): getswiftgrab.com
 Windows 10 & 11
 
-<20–25 hashtags: start with #SwiftGrab #DownloadManager #Windows11 #Windows10 #PCTips #TechTips, then topic ones>
+<20–25 hashtags, all about the software (see Hashtags below)>
 ```
+### Hashtags (owner's rule, Oct 31: every video, only hashtags related to the software)
+Always start with this fixed set, in this order:
+`#SwiftGrab #SwiftGrabApp #DownloadManager #DownloadAccelerator #Windows11 #Windows10 #PCSoftware #WindowsApps`
+Then 12–17 more that fit the video's topic and are about downloading, Windows or the feature shown, for example:
+#FasterDownloads #ResumeDownloads #DownloadScheduler #SpeedLimit #FileOrganization #SaveImages #BrowserExtension #ChromeExtension #FirefoxAddon #ClipboardManager #PCTips #TechTips #WindowsTips #ComputerTips #Productivity #HowTo #Tutorial #SoftwareTools #NoSubscription #FreeTrial
+Never use hashtags unrelated to SwiftGrab (no trending or viral tags, no names of other apps, sites or platforms).
 Titles under 60 characters: TikTok title, Facebook Reel title, YouTube title ending in "#shorts". YouTube tags: up to 15.
 
 ## Schedule (Metricool)
