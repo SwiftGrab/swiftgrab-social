@@ -11,3 +11,4 @@
 2026-11-06 10:00 | topic 6 | Big download freezing your video call? (older ad, already scheduled) | -
 2026-10-30 13:00 | topic 13 | What is SwiftGrab? Install it in 3 steps (real screen recording) | media/2026-10-30/swiftgrab-install-3-steps.mp4
 2026-10-31 02:20 | topic 13+1+7 | Here's how to use SwiftGrab (first voice-over video) | media/2026-10-31/swiftgrab-how-to-use.mp4
+2026-10-31 12:00 | link story | link-1.jpg
