@@ -111,7 +111,7 @@ Titles under 60 characters: TikTok title, Facebook Reel title, YouTube title end
 - Tomorrow must end up with **3 posts in total**: if some already exist, only add the missing number. Times at least 2 h apart, between 9:00 and 21:00, preferring the best hours (default 10:00, 13:00, 18:00 when no data). Never touch existing posts.
 - `createScheduledPost` per video: providers instagram, facebook, tiktok, youtube; `instagramData {type:"REEL", showReelOnFeed:true}`, `facebookData {type:"REEL", title}`, `tiktokData {title, privacyOption:"PUBLIC_TO_EVERYONE", commercialContentOwnBrand:true}`, `youtubeData {title, type:"short", privacy:"public", madeForKids:false, category:"SCIENCE_TECHNOLOGY", tags}`. Media = the raw.githubusercontent.com link of the final video, and `videoThumbnailUrl` = the raw.githubusercontent.com link of its cover jpg.
 
-- **Stories too (owner's rule, Oct 31):** for every video also create a second post: providers instagram + facebook, `instagramData {type:"STORY"}`, `facebookData {type:"STORY"}`, same media link, **no text** (Stories have no caption), 2 hours after that video's Reel (or 9:00 the same day if that is later than 21:00). Stories don't count toward the 3 posts a day.
+- **Stories too (owner's rule, Oct 31):** for every video also create a second post: providers instagram + facebook, `instagramData {type:"STORY"}`, `facebookData {type:"STORY"}`, same media link, **no text** (Stories have no caption), 2 hours after that video's Reel (if that would be after 22:00, use 9:00 the next morning). Stories don't count toward the 3 posts a day.
 
 ## Log and report
 Append one line per video to `kit/LOG.md`: `<post date> <time> | topic <n> | <hook> | <file>` and push.
