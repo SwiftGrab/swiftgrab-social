@@ -81,14 +81,16 @@ Delete `media/` folders older than 3 days in the same commit (Metricool keeps it
 ⬇️ Download free (30-day trial): getswiftgrab.com
 Windows 10 & 11
 
-<20–25 hashtags, all about the software (see Hashtags below)>
+<exactly 30 hashtags, all about the software (see Hashtags below)>
 ```
-### Hashtags (owner's rule, Oct 31: every video, only hashtags related to the software)
-Always start with this fixed set, in this order:
+### Hashtags (owner's rule, Oct 31: use MANY hashtags, all related to the software)
+Use **30 hashtags on every video** (30 is Instagram's maximum: never more, or Instagram rejects the post).
+Always start with this fixed set of 8, in this order:
 `#SwiftGrab #SwiftGrabApp #DownloadManager #DownloadAccelerator #Windows11 #Windows10 #PCSoftware #WindowsApps`
-Then 12–17 more that fit the video's topic and are about downloading, Windows or the feature shown, for example:
-#FasterDownloads #ResumeDownloads #DownloadScheduler #SpeedLimit #FileOrganization #SaveImages #BrowserExtension #ChromeExtension #FirefoxAddon #ClipboardManager #PCTips #TechTips #WindowsTips #ComputerTips #Productivity #HowTo #Tutorial #SoftwareTools #NoSubscription #FreeTrial
+Then 22 more about downloading, Windows or the feature shown in the video, for example:
+#FasterDownloads #ResumeDownloads #DownloadSpeed #FileDownloader #DownloadScheduler #SpeedLimit #FileOrganization #SaveImages #BrowserExtension #ChromeExtension #FirefoxAddon #ClipboardManager #WindowsSoftware #PCApps #DesktopApp #PCTips #TechTips #WindowsTips #ComputerTips #TechTutorial #Productivity #HowTo #Tutorial #SoftwareTools #NoSubscription #FreeTrial #LargeFiles #InternetSpeed
 Never use hashtags unrelated to SwiftGrab (no trending or viral tags, no names of other apps, sites or platforms).
+YouTube tags field: 15 tags, the same words without #.
 Titles under 60 characters: TikTok title, Facebook Reel title, YouTube title ending in "#shorts". YouTube tags: up to 15.
 
 ## Schedule (Metricool)
