@@ -1,0 +1,36 @@
+{
+ "voice": "af_heart",
+ "secs": 28,
+ "lines": [
+  {
+   "t": 0.3,
+   "text": "Here's how to use Swift Grab, the download manager for Windows.",
+   "cap": "How to use <b>SwiftGrab</b> on Windows"
+  },
+  {
+   "t": 4.3,
+   "text": "Click any download link in your browser. Swift Grab takes over, and asks where to save it.",
+   "cap": "Click a download in your browser \u2192 <b>SwiftGrab takes over</b>"
+  },
+  {
+   "t": 9.8,
+   "text": "Press Start Download. It splits the file into parts, so it finishes faster.",
+   "cap": "<b>Start Download</b>: 8 parts at once = faster"
+  },
+  {
+   "t": 14.6,
+   "text": "If your Wi-Fi drops, just press Resume. It picks up right where it stopped.",
+   "cap": "Wi-Fi dropped? Press <b>Resume</b>"
+  },
+  {
+   "t": 19.4,
+   "text": "And every file lands in the right folder: video, music, documents, and more.",
+   "cap": "Every file in the <b>right folder</b>"
+  },
+  {
+   "t": 24.3,
+   "text": "Try it free for thirty days, at get swift grab dot com.",
+   "cap": ""
+  }
+ ]
+}

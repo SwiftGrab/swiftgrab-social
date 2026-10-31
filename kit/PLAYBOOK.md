@@ -1,6 +1,6 @@
 # SwiftGrab daily video playbook
 
-Every day: make **3 new vertical videos** (1080×1920, 16 s, 30 fps, with music) that show the **real** SwiftGrab app,
+Every day: make **3 new vertical videos** (1080×1920, 24–30 s, 30 fps, with a **voice-over** and quiet music) that show the **real** SwiftGrab app,
 upload them to this repo, and schedule them in Metricool for **tomorrow** on Instagram (Reel), Facebook (Reel), TikTok and YouTube (Short).
 
 Owner: Sevada (salesswiftgrab@gmail.com). Prefers short, simple English. Timezone America/Los_Angeles.
@@ -40,6 +40,15 @@ Metricool brand id **7635540**. Website **getswiftgrab.com**. Product: SwiftGrab
 15. Pause & resume many downloads / the queue (main window with several rows)
 Vary the hook each time; never reuse a hook sentence that is already in LOG.md.
 
+## Voice-over (required on every video since Oct 31)
+Every video has a calm voice explaining **what SwiftGrab does and how to use it**, and the screen always shows exactly what the voice is saying at that moment (voice says "press Resume" → cursor clicks Resume, ring on it). Subtitles of each line run at the bottom for muted viewers.
+1. Write the script first: `kit/voice/<YYYY-MM-DD>-<slug>.json` (copy `kit/voice/2026-10-31-how-to-use.json`). 5–6 short lines, each with its start time `t`; one idea per line; simple words; last line at secs−4 is the call to action ("Try it free for thirty days, at get swift grab dot com."). Write the product name as "Swift Grab" in the spoken text (the subtitle can say SwiftGrab). Never say a site or platform name.
+2. Setup once: `pip install --break-system-packages --no-index --no-deps -q kit/tts/*.whl` (offline, voice model is in kit/tts).
+3. Music for the full length: `BARS=14 python3 kit/music.py <n> /tmp/m.wav` (28 s; BARS=12 → 24 s, end-card hit at secs−4).
+4. `python3 kit/voice.py kit/voice/<file>.json /tmp/<slug>-audio.wav /tmp/m.wav` → prints each line's start–end time. If it says TOO LONG, shorten that line or move the next one. Voice: `af_heart` (default); keep the same voice on all videos so the brand sounds the same.
+5. Build the HTML scenes on those times (copy `kit/videos/2026-10-31-how-to-use.html`: it has the `CAPS` subtitle list and the scene/cursor/ring timing pattern). Each click or ring happens while the voice says that word.
+6. Render with the length: `node kit/render.js <html> /tmp/<slug>_v.mp4 28`, then mix: `ffmpeg -y -i /tmp/<slug>_v.mp4 -i /tmp/<slug>-audio.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 192k -shortest -movflags +faststart media/<date>/swiftgrab-<slug>-raw.mp4` (the audio is already loudness-normalised), then the cover step.
+
 ## How to build a video
 1. Copy a recent file in `kit/videos/` (the 2026-10-29-*.html ones show the real-screenshot style; `example-*.html` show pure motion graphics) to `kit/videos/<YYYY-MM-DD>-<slug>.html` (date = posting day). Keep `<base href="../">`.
 2. Structure (120 BPM, beat = 0.5 s; the music drops at 4.0 s and hits again at 12.0 s):
@@ -50,8 +59,8 @@ Vary the hook each time; never reuse a hook sentence that is already in LOG.md.
    Helpers: `kit/lib.js`, `kit/fx.js`, `kit/realfx.js` (screenshot coordinates are documented at its top). Text must stay inside 60 px side margins and never overlap.
 3. Check: `node kit/stills.js kit/videos/<file>.html /tmp/x 2.5 5 7 10 13.5`, put the stills side by side in one image and **look at it**. Fix cut-off or overlapping text, empty frames, rings in the wrong place.
 4. Render: `node kit/render.js kit/videos/<file>.html /tmp/<slug>_v.mp4` (≈1–2 min; run the three in parallel).
-5. Music: `python3 kit/music.py <n> /tmp/m<n>.wav` with a different n (1–6) for each of the day's 3 videos.
-6. Mix: `ffmpeg -y -i /tmp/<slug>_v.mp4 -i /tmp/m<n>.wav -map 0:v -map 1:a -c:v copy -af "loudnorm=I=-14:TP=-1.5:LRA=11" -ar 48000 -c:a aac -b:a 192k -shortest -movflags +faststart media/<YYYY-MM-DD>/swiftgrab-<slug>.mp4`
+5. Music: see Voice-over above (a different n 1–6 for each of the day's 3 videos).
+6. Mix: see Voice-over step 6 (voice + ducked music from kit/voice.py)
    then `ffprobe` it: 1080×1920, h264 + aac, 16 s.
 7. **Cover (required — otherwise the posts look empty in the grid):** `python3 kit/cover.py media/<date>/swiftgrab-<slug>-raw.mp4 <time when the hook headline is fully visible, usually 3.5> media/covers/swiftgrab-<slug>-cover.jpg media/<date>/swiftgrab-<slug>.mp4`
    (so mix to `...-raw.mp4` in step 6, then make the final file with the cover; delete the -raw file before committing). Look at the cover image before scheduling.

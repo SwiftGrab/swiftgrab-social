@@ -1,0 +1,84 @@
+<!doctype html><html><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="fx.css"><link rel="stylesheet" href="real.css">
+<style>
+/* voice-over video: every scene matches the narration in kit/voice/2026-10-31-how-to-use.json */
+.sub{position:absolute;left:60px;right:60px;top:1600px;text-align:center;font-family:"Inter Display","Inter",sans-serif;font-weight:800;font-size:54px;line-height:1.2;opacity:0}
+.sub b{color:#FFC21A}
+.dlbtn{display:inline-block;margin:10px 36px 40px;padding:22px 44px;border-radius:14px;background:#2563eb;color:#fff;font-size:34px;font-weight:800}
+.page .fname{margin:30px 36px 0;font-size:40px;font-weight:800}
+.page .fmeta{margin:8px 36px 0;font-size:28px;color:#475569}
+.lost{color:#f87171}
+</style></head><body>
+<div class="bg"></div><div class="grid"></div>
+<div class="layer" id="h1" style="top:300px;opacity:1"><div class="h" id="h1t" style="font-size:104px">How to use <b>SwiftGrab</b></div></div>
+<div class="shot" id="app" style="left:40px;top:640px;width:1000px"><img src="screens/app-main.webp"><div class="ring" id="rg"></div></div>
+<div class="page" id="pg" style="left:60px;top:520px"><div class="ub"><i></i><i></i><i></i><div class="u">example.com/downloads</div></div>
+ <div class="fname">📦 project-assets.zip</div><div class="fmeta">2.4 GB · version 3</div><div class="dlbtn" id="dlb">⬇ Download</div></div>
+<div class="shot" id="dlg" style="left:40px;top:1000px;width:1000px"><img src="screens/tut-working.webp"><div class="ring" id="rg2"></div></div>
+<div class="card" id="toast" style="position:absolute;left:80px;top:1150px;opacity:0"><div class="top"><img src="icon.svg"><span id="tname">project-assets.zip · 2.4 GB</span></div>
+ <div class="segs" id="segs"></div><div class="meta"><span id="spd">0 MB/s</span><span id="pct">0%</span></div></div>
+<div class="sub" id="sub"></div>
+<div class="disc" id="disc">Illustration. Real speed depends on your connection and the server.</div>
+<div class="cursor" id="cur"></div>
+<script src="lib.js"></script><script src="fx.js"></script><script src="realfx.js"></script><script>
+chrome(); endcard2('Download faster. <b>Never start over.</b>'); $('#cur').innerHTML = CURSOR;
+splitWords($('#h1t'));
+const CAPS = [[4.3, 9.7, 'Click a download in your browser → <b>SwiftGrab takes over</b>'],
+              [9.8, 14.5, '<b>Start Download</b>: 8 parts at once = faster'],
+              [14.6, 19.3, 'Wi-Fi dropped? Press <b>Resume</b>'],
+              [19.4, 24.0, 'Every file in the <b>right folder</b>']];
+const segs = $('#segs'); for (let i = 0; i < 8; i++) segs.appendChild(document.createElement('div')).appendChild(document.createElement('i'));
+const rate = [1, .86, .93, .8, .97, .84, .9, .88]; const parts = makeParticles(60, 11);
+function fill(p) { segs.querySelectorAll('i').forEach((e, i) => { e.style.width = clamp(p / rate[i] * .9) * 100 + '%'; }); }
+function frame(t) {
+  common(t); beatBg(t); streaks(t); flash(t, [24.0]); wipe(t, t < 7 ? 4.2 : t < 12 ? 9.75 : t < 17 ? 14.55 : t < 22 ? 19.35 : 24.0);
+  // subtitles that follow the voice
+  const c = CAPS.find(x => t >= x[0] && t < x[1]); const sub = $('#sub');
+  if (c) { if (sub.dataset.k !== String(c[0])) { sub.innerHTML = c[2]; sub.dataset.k = c[0]; } show(sub, t, c[0], c[1] - .05, .25); } else sub.style.opacity = 0;
+  // 1. title + the real app
+  $('#h1').style.display = t < 4.2 ? '' : 'none'; words($('#h1'), t, .2, .14, 4.1);
+  const app = $('#app'), cur = $('#cur');
+  if (t < 4.2) { shot(app, t, .6, 4.15, 1, 1.06); }
+  else if (t > 14.55 && t < 24) {
+    app.style.opacity = Math.min(ease(seg(t, 14.6, 14.95)), 1 - ease(seg(t, 23.7, 23.98)));
+    app.style.top = '560px';
+    const A = [1, 800, 375, 540, 800], R = [1.8, 469, 200, 540, 760], S = [1.9, 150, 320, 330, 820];
+    if (t < 19.4) cam(app, A, R, seg(t, 14.7, 15.4)); else cam(app, R, S, seg(t, 19.4, 20.1));
+  } else app.style.opacity = 0;
+  // 2. browser page: click Download
+  if (t > 4.2 && t < 9.75) { pop($('#pg'), t, 4.3, 9.7); $('#dlb').style.background = t > 5.6 ? '#1d4ed8' : '#2563eb'; } else $('#pg').style.opacity = 0;
+  // the real "Download File Info" window opens
+  const dlg = $('#dlg');
+  if (t > 6.6 && t < 14.5) {
+    if (t < 9.75) { dlg.style.top = '1000px'; shot(dlg, t, 6.7, null, 1, 1.03, 500, 200, 1000); }
+    else { dlg.style.opacity = Math.min(1, 1 - ease(seg(t, 12.0, 12.4))); dlg.style.top = '560px';
+      cam(dlg, [1, 500, 200, 540, 760], [1.5, 775, 308, 540, 800], seg(t, 9.8, 10.4), 1000); }
+  } else dlg.style.opacity = 0;
+  if (t > 10.2 && t < 12.2) ring($('#rg2'), t, 10.2, 12.2, 694, 288, 162, 44, 1000); else $('#rg2').style.opacity = 0;
+  // cursor: Download button (5.4), Start Download (10.9), Resume (16.3)
+  if (t > 4.4 && t < 6.5) { const r = $('#dlb').getBoundingClientRect(); cursorMove(cur, t, 4.6, 5.4, [900, 1750], [r.left + r.width * .45, r.top + r.height * .6], 6.4); }
+  else if (t > 10.0 && t < 11.8) cursorMove(cur, t, 10.1, 10.9, [960, 1750], at(dlg, 775, 315, 1000), 11.7);
+  else if (t > 15.3 && t < 17.2) cursorMove(cur, t, 15.4, 16.3, [960, 1750], at(app, 469, 135), 17.1);
+  else cur.style.opacity = 0;
+  if (t > 15.6 && t < 19.3) ring($('#rg'), t, 15.6, 19.3, 425, 95, 90, 75);
+  else if (t > 20.2 && t < 23.9) {          // sidebar: Video, Music, Documents one after another (as the voice says them)
+    const y = t < 21.6 ? 247 : t < 22.2 ? 279 : t < 22.9 ? 310 : 215;
+    const h = t < 22.9 ? 32 : 225; ring($('#rg'), t, 20.2, 23.9, 30, y, 240, h);
+  } else $('#rg').style.opacity = 0;
+  // 3. eight parts at once
+  const card = $('#toast');
+  if (t > 11.2 && t < 14.5) {
+    pop(card, t, 11.3, 14.45); card.style.top = '1180px'; $('#tname').textContent = 'project-assets.zip · 2.4 GB';
+    const p = seg(t, 11.6, 14.2); fill(p); $('#pct').textContent = Math.round(Math.min(1, p) * 100) + '%';
+    $('#spd').textContent = p >= 1 ? 'Complete ✓' : lerp(0, 38.2, ease(seg(t, 11.6, 12.1))).toFixed(1) + ' MB/s · 8 parts';
+  } else if (t > 14.6 && t < 19.3) {        // 4. connection lost, Resume, carries on
+    pop(card, t, 14.7, 19.25); card.style.top = '1180px'; $('#tname').textContent = 'podcast-episode-112.mp3';
+    const p = t < 16.4 ? .41 : lerp(.41, 1, seg(t, 16.5, 18.8)); fill(p); $('#pct').textContent = Math.round(p * 100) + '%';
+    const s = $('#spd');
+    if (t < 16.4) { s.textContent = t > 15.0 ? '⚠ Wi-Fi lost · paused' : '12.9 MB/s'; s.className = t > 15.0 ? 'lost' : ''; }
+    else { s.className = ''; s.textContent = p >= 1 ? 'Complete ✓ – nothing lost' : 'Resumed at 41% · 12.9 MB/s'; }
+  } else card.style.opacity = 0;
+  show($('#disc'), t, 11.4, 14.4);
+  if (t < 24) burst(parts, t, t < 16 ? 14.2 : 18.8, 540, 1250); else burst(parts, t, 24.0, 540, 760);
+  if (t >= 24) { pop($('#end'), t, 24.0, null, .55); $('#end').style.transform += ` scale(${1 + pulse(t) * .02})`; } else $('#end').style.opacity = 0;
+}
+</script></body></html>
