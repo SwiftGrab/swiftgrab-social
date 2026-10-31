@@ -1,0 +1,29 @@
+<!doctype html><html><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="real.css">
+<style>
+.wrap{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;flex-direction:column;align-items:center;text-align:center}
+.logo{width:760px;margin-top:150px}
+.t{font-family:"Inter Display","Inter",sans-serif;font-weight:900;font-size:78px;line-height:1.08;letter-spacing:-1.5px;margin-top:56px;padding:0 70px}
+.t b{color:#FFC21A}
+.shotS{width:960px;border-radius:22px;overflow:hidden;margin-top:60px;box-shadow:0 50px 120px rgba(0,0,0,.65),0 0 0 2px rgba(255,255,255,.08)}
+.shotS{max-height:600px}.shotS img{display:block;width:100%;max-height:600px;object-fit:cover;object-position:top}
+.box{width:940px;box-sizing:border-box;margin-top:56px;border-radius:30px;background:#121B3A;border:3px solid rgba(255,194,26,.6);padding:34px 40px;text-align:left}
+.row{display:flex;align-items:center;gap:26px;font-size:40px;font-weight:800;margin:14px 0}
+.row .ic{width:76px;height:76px;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:44px;flex:none}
+.row small{display:block;font-size:28px;font-weight:600;color:#A7B3D6;margin-top:4px}
+.g{font-size:33px}.w .ic{background:#FFC21A;color:#14110a}.g .ic{background:#2b3a6b}
+.free{margin-top:44px;font-size:40px;font-weight:800;color:#14110a;background:#FFC21A;padding:22px 52px;border-radius:999px}
+.small{margin-top:26px;font-size:30px;color:#A7B3D6}
+</style></head><body><div class="bg"></div><div class="grid"></div>
+<div class="wrap">
+ <img class="logo" src="logo.svg">
+ <div class="t" id="t">TITLE</div>
+ <div class="shotS"><img id="img" src="screens/app-main.webp"></div>
+ <div class="box">
+  <div class="row w"><div class="ic">🌐</div><div>getswiftgrab.com<small>Website · download &amp; buy</small></div></div>
+  <div class="row g"><div class="ic">⬇️</div><div>github.com/SwiftGrab/swiftgrab-releases<small>Every version, signed installer</small></div></div>
+ </div>
+ <div class="free">Free for 30 days · Windows 10 &amp; 11</div>
+ <div class="small">Type the address in your browser</div>
+</div>
+<script>const q=new URLSearchParams(location.search);document.getElementById('t').innerHTML=q.get('t')||'';if(q.get('img'))document.getElementById('img').src=q.get('img');</script>
+</body></html>

@@ -113,6 +113,8 @@ Titles under 60 characters: TikTok title, Facebook Reel title, YouTube title end
 
 - **Stories too (owner's rule, Oct 31):** for every video also create a second post: providers instagram + facebook, `instagramData {type:"STORY"}`, `facebookData {type:"STORY"}`, same media link, **no text** (Stories have no caption), 2 hours after that video's Reel (if that would be after 22:00, use 9:00 the next morning). Stories don't count toward the 3 posts a day.
 
+- **Link Stories every 2 days (owner's rule, Oct 31):** a Story picture with the website and the GitHub download page. Look in LOG.md for the last line with "link story". If tomorrow is 2 or more days after it, also schedule for tomorrow 12:00 one post: providers instagram + facebook, `instagramData {type:"STORY"}`, `facebookData {type:"STORY"}`, media = `https://raw.githubusercontent.com/SwiftGrab/swiftgrab-social/main/media/stories/link-<n>.jpg` (rotate n = 1, 2, 3, 4), no text. Log it as `<date> 12:00 | link story | link-<n>.jpg`. New designs: edit `kit/stories/make.js` and run `node kit/stories/make.js` (they show getswiftgrab.com and github.com/SwiftGrab/swiftgrab-releases; scheduled Stories can't carry a clickable link sticker, so the addresses are written on the picture).
+
 ## Log and report
 Append one line per video to `kit/LOG.md`: `<post date> <time> | topic <n> | <hook> | <file>` and push.
 Then send the owner ONE short message (SendUserMessage) with the 3 videos (SendUserFile, status "proactive") and the times they will post. If anything failed, say exactly what and what to do.
