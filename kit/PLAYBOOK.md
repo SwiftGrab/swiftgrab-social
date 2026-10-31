@@ -14,6 +14,11 @@ Metricool brand id **7635540**. Website **getswiftgrab.com**. Product: SwiftGrab
 - Browser add-on for Chrome, Edge, Brave and Firefox: catches browser downloads; popup shows media found on the page with Best quality; "Save all images" from this tab / tabs to the right / all tabs.
 - Clipboard watch: copy a download link and SwiftGrab offers to download it.
 - Digitally signed (Windows shows a verified publisher), updates itself (app and add-on), no ads, no tracking.
+- Add-on button on videos and pictures: hover a video or picture on any web page and a small SwiftGrab bar appears: **Download** (choose), **⚡ Quick download** (best quality, starts right away, no questions) and **↗** (opens a picture alone, full size, in a new tab).
+- On a file preview (for example a PDF attachment in webmail) the bar says "Download <file name>.pdf" and downloads the file itself, not the preview picture.
+- "Rip this page" in the add-on popup: collects every picture and video on a gallery page in one go, in full size, into one folder ("Scroll to load more first" option).
+- "Capture while browsing": turn it on, open posts as usual, then send everything that loaded to SwiftGrab.
+- Pairing: the add-on connects to the app with a pairing code from SwiftGrab's Settings → Browser.
 
 ## Rules
 - Show the **real app**: use the screenshots in `kit/screens/` (app-main, addon-popup, addon-settings, app-license, tut-*). Dialogs not in a screenshot are drawn in the app's dark style with `real.css` (`.qt`). Logo/icon only from `kit/logo.svg` / `kit/icon.svg`.
@@ -38,10 +43,18 @@ Metricool brand id **7635540**. Website **getswiftgrab.com**. Product: SwiftGrab
 13. Easy setup in 4 steps: download → install → add-on → pairing code (use tut-* screenshots)
 14. 30-day free trial, every feature
 15. Pause & resume many downloads / the queue (main window with several rows)
+16. Add-on ⚡ Quick download: hover a video, click ⚡, it's saving in the best quality (with the "right to save" line)
+17. Add-on ↗ button: open any picture full size in a new tab
+18. Add-on on attachments: hover a PDF preview in your email, the bar downloads the PDF itself
+19. Add-on "Rip this page": a whole gallery of pictures in one click, into one folder
+20. Add-on Capture while browsing: open posts as usual, send everything to SwiftGrab at once
+21. Add-on setup + pairing code (tut-pairing-code) and right-click "Download with SwiftGrab"
+Mix app topics and add-on topics: of each day's 3 videos, at least one is about the browser add-on.
+Add-on scenes: show a made-up web page (example.com style, .page in real.css) and the real bar from `kit/screens/addon-bar.png` (picture bar: Download image · ⚡ · ↗ · ✕) or `addon-bar-file.png` (file bar); the popup from `addon-popup.webp`. Never show a real site, platform or brand.
 Vary the hook each time; never reuse a hook sentence that is already in LOG.md.
 
 ## Voice-over (required on every video since Oct 31)
-Every video has a calm voice explaining **what SwiftGrab does and how to use it**, and the screen always shows exactly what the voice is saying at that moment (voice says "press Resume" → cursor clicks Resume, ring on it). Subtitles of each line run at the bottom for muted viewers.
+Every video has a calm voice explaining **what SwiftGrab (the app or the browser add-on) does and how to use it, step by step**, and the screen always shows exactly what the voice is saying at that moment (voice says "press Resume" → cursor clicks Resume, ring on it). Subtitles of each line run at the bottom for muted viewers.
 1. Write the script first: `kit/voice/<YYYY-MM-DD>-<slug>.json` (copy `kit/voice/2026-10-31-how-to-use.json`). 5–6 short lines, each with its start time `t`; one idea per line; simple words; last line at secs−4 is the call to action ("Try it free for thirty days, at get swift grab dot com."). Write the product name as "Swift Grab" in the spoken text (the subtitle can say SwiftGrab). Never say a site or platform name.
 2. Setup once: `pip install --break-system-packages --no-index --no-deps -q kit/tts/*.whl` (offline, voice model is in kit/tts).
 3. Music for the full length: `BARS=14 python3 kit/music.py <n> /tmp/m.wav` (28 s; BARS=12 → 24 s, end-card hit at secs−4).
