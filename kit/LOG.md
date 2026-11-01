@@ -16,3 +16,8 @@
 2026-11-01 10:00 | topic 18 (add-on) | Need the PDF from an email, not just its preview picture? | media/2026-11-01/swiftgrab-attachment.mp4
 2026-11-01 13:00 | topic 3 | Big downloads slowing down your day? | media/2026-11-01/swiftgrab-scheduler.mp4
 2026-11-01 18:00 | topic 19 (add-on) | Want every picture from a page, without right clicking each one? | media/2026-11-01/swiftgrab-save-images.mp4
+2026-11-02 10:00 | topic 1 | Wi-Fi dropped, and your download stopped at seventy eight percent? | media/2026-11-02/swiftgrab-resume.mp4
+2026-11-02 12:00 | link story | link-2.jpg
+2026-11-02 13:00 | topic 17 (add-on) | Want to see a picture in full size, without the page around it? | media/2026-11-02/swiftgrab-open-picture.mp4
+2026-11-02 15:00 | longform (YouTube video) | How to Download Files Faster on Windows – SwiftGrab Full Tutorial | media/2026-11-02/swiftgrab-tutorial-full.mp4
+2026-11-02 18:00 | topic 2 | Big downloads taking forever? | media/2026-11-02/swiftgrab-eight-parts.mp4
