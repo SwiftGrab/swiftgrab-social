@@ -7,7 +7,7 @@ from PIL import Image, ImageDraw
 src, t, cover, out = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
 here = os.path.dirname(os.path.abspath(__file__)); raw = cover + '.raw.png'
 subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', t, '-i', src, '-frames:v', '1', raw], check=True)
-fr = Image.open(raw).convert('RGBA'); im = fr.copy(); im.alpha_composite(fr.crop((0, 170, 1080, 1560)), (0, 250))
+fr = Image.open(raw).convert('RGBA'); im = fr.copy(); im.alpha_composite(fr.crop((0, 0, 1080, 170)).resize((1080, 250)), (0, 0)); im.alpha_composite(fr.crop((0, 170, 1080, 1560)), (0, 250))
 band = Image.new('RGBA', (1080, 330)); g = ImageDraw.Draw(band)
 for y in range(330): g.line([(0, y), (1080, y)], fill=(10, 16, 36, int(240 * min(1, y / 110))))
 logo = Image.open(os.path.join(here, 'logo-band.png')).convert('RGBA'); logo = logo.crop(logo.getbbox())

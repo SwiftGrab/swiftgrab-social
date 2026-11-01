@@ -1,0 +1,69 @@
+<!doctype html><html><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="fx.css"><link rel="stylesheet" href="real.css">
+<style>
+/* voice-over video: scenes follow kit/voice/2026-11-01-attachment.json */
+.sub{position:absolute;left:60px;right:60px;top:1600px;text-align:center;font-family:"Inter Display","Inter",sans-serif;font-weight:800;font-size:54px;line-height:1.2;opacity:0}
+.sub b{color:#FFC21A}
+.mail .subj{margin:30px 36px 6px;font-size:40px;font-weight:800}
+.mail .from{margin:0 36px;font-size:26px;color:#64748b}
+.mail .body{margin:22px 36px;font-size:28px;color:#334155;line-height:1.45}
+.att{margin:10px 36px 40px;width:420px;border:2px solid #e2e8f0;border-radius:18px;overflow:hidden;background:#f1f5f9}
+.att .prev{height:230px;background:linear-gradient(#fff,#f1f5f9);position:relative}
+.att .prev i{position:absolute;left:40px;right:40px;height:12px;border-radius:6px;background:#e2e8f0}
+.att .nm{display:flex;align-items:center;gap:14px;padding:18px;font-size:26px;font-weight:700;color:#334155;background:#fff;border-top:2px solid #e2e8f0}
+.att .pdf{background:#ef4444;color:#fff;font-size:18px;font-weight:900;padding:6px 8px;border-radius:6px}
+.sgbar{position:absolute;display:flex;align-items:stretch;border-radius:14px;overflow:hidden;background:#1565c0;color:#fff;
+  box-shadow:0 8px 30px rgba(0,0,0,.45);font-family:"Segoe UI","Inter",sans-serif;font-size:32px;opacity:0;white-space:nowrap}
+.sgbar span{display:flex;align-items:center;padding:16px 18px;gap:12px}
+.sgbar .grip{color:rgba(255,255,255,.75);border-right:2px solid rgba(255,255,255,.25);padding:16px 12px}
+.sgbar .q,.sgbar .x{border-left:2px solid rgba(255,255,255,.25);padding:16px 20px}
+.sgbar .main.ok{background:#2e7d32}
+.dlp{position:absolute;left:120px;width:840px;border-radius:22px;background:#fff;color:#0f172a;box-shadow:0 40px 100px rgba(0,0,0,.6);opacity:0;overflow:hidden;font-family:"Segoe UI","Inter",sans-serif}
+.dlp .hd{padding:22px 30px;font-size:30px;font-weight:800;border-bottom:2px solid #e2e8f0}
+.dlp .row{display:flex;align-items:center;gap:20px;padding:26px 30px;font-size:30px}
+.dlp .row small{display:block;color:#64748b;font-size:24px;margin-top:4px}
+.dlp .ok{margin-left:auto;color:#16a34a;font-weight:800}
+</style></head><body>
+<div class="bg"></div><div class="grid"></div>
+<div class="layer" id="h1" style="top:230px;opacity:1"><div class="h" id="h1t" style="font-size:90px">Get the <b>PDF</b>, not the preview 📎</div></div>
+<div class="page mail" id="pg" style="left:60px;top:600px"><div class="ub"><i></i><i></i><i></i><div class="u">mail.example.com/inbox</div></div>
+ <div class="subj">Your invoice for October</div><div class="from">billing@example.com · 9:41 AM</div>
+ <div class="body">Hi! Your invoice is attached. Thank you for your order.</div>
+ <div class="att" id="att"><div class="prev"><i style="top:40px"></i><i style="top:70px;right:120px"></i><i style="top:100px"></i><i style="top:130px;right:180px"></i><i style="top:160px"></i></div>
+ <div class="nm"><span class="pdf">PDF</span>Invoice-October.pdf</div></div></div>
+<div class="sgbar" id="bar"><span class="grip">⠿</span><span class="main" id="mb">⬇ Download Invoice-October.pdf</span><span class="q">⚡</span><span class="x">✕</span></div>
+<div class="dlp" id="dlp" style="top:700px"><div class="hd">Downloads</div>
+ <div class="row">📄<div>Invoice-October.pdf<small>63 KB · saved in Downloads</small></div><span class="ok">Done ✓</span></div></div>
+<div class="layer" id="chips" style="top:700px"><div style="width:960px"><span class="chip" id="c0">📄 PDF</span><span class="chip" id="c1">📝 Word</span><span class="chip" id="c2">📊 Excel</span><span class="chip" id="c3">🗜️ ZIP</span></div></div>
+<div class="sub" id="sub"></div>
+<div class="cursor" id="cur"></div>
+<script src="lib.js"></script><script src="fx.js"></script><script src="realfx.js"></script><script>
+chrome(); endcard2('The real file. <b>One click.</b>'); $('#cur').innerHTML = CURSOR;
+splitWords($('#h1t'));
+const CAPS = [[4.3, 9.5, 'Hover the attachment → the bar shows the <b>file name</b>'],
+              [9.6, 13.3, 'Click → you get the <b>PDF itself</b>'],
+              [13.4, 18.5, 'Saved by your browser, <b>signed in</b>'],
+              [18.6, 24.0, 'PDF, Word, Excel, ZIP – <b>all the same</b>']];
+const parts = makeParticles(60, 31);
+function frame(t) {
+  common(t); beatBg(t); streaks(t); flash(t, [24.0]); wipe(t, t < 6 ? 4.2 : t < 15 ? 13.35 : t < 20 ? 18.55 : 24.0);
+  const c = CAPS.find(x => t >= x[0] && t < x[1]); const sub = $('#sub');
+  if (c) { if (sub.dataset.k !== String(c[0])) { sub.innerHTML = c[2]; sub.dataset.k = c[0]; } show(sub, t, c[0], c[1] - .05, .25); } else sub.style.opacity = 0;
+  $('#h1').style.display = t < 4.2 ? '' : 'none'; words($('#h1'), t, .2, .13, 4.1);
+  const pg = $('#pg');
+  if (t < 13.35) { pop(pg, t, .5, 13.3); pg.style.top = t < 4.2 ? '600px' : lerp(600, 380, ease(seg(t, 4.2, 4.8))) + 'px'; } else pg.style.opacity = 0;
+  const att = $('#att').getBoundingClientRect(), bar = $('#bar');
+  if (t > 6.2 && t < 13.35) { bar.style.left = Math.max(60, att.right - 690) + 'px'; bar.style.top = (att.top + 18) + 'px'; pop(bar, t, 6.2, 13.3, .35); }
+  else bar.style.opacity = 0;
+  $('#mb').className = t > 11.0 ? 'main ok' : 'main'; $('#mb').textContent = t > 11.0 ? '✓ Downloading Invoice-October.pdf' : '⬇ Download Invoice-October.pdf';
+  const cur = $('#cur');
+  if (t > 4.6 && t < 12.6) {
+    if (t < 10.0) cursorMove(cur, t, 4.8, 5.9, [900, 1800], [att.left + att.width * .5, att.top + att.height * .45], 12.5);
+    else { const r = $('#mb').getBoundingClientRect(); cursorMove(cur, t, 10.0, 10.8, [att.left + att.width * .5, att.top + att.height * .45], [r.left + 120, r.top + r.height * .6], 12.5); }
+  } else cur.style.opacity = 0;
+  if (t > 13.35 && t < 18.55) pop($('#dlp'), t, 13.6, 18.5); else $('#dlp').style.opacity = 0;
+  if (t > 18.55 && t < 24) { $('#chips').style.opacity = 1 - seg(t, 23.7, 23.98); for (let i = 0; i < 4; i++) pop($('#c' + i), t, 19.2 + i * .5); }
+  else $('#chips').style.opacity = 0;
+  if (t < 24) burst(parts, t, t < 16 ? 14.0 : 19.4, 540, t < 16 ? 800 : 760); else burst(parts, t, 24.0, 540, 760);
+  if (t >= 24) { pop($('#end'), t, 24.0, null, .55); $('#end').style.transform += ` scale(${1 + pulse(t) * .02})`; } else $('#end').style.opacity = 0;
+}
+</script></body></html>

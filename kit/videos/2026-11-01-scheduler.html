@@ -1,0 +1,71 @@
+<!doctype html><html><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="fx.css"><link rel="stylesheet" href="real.css">
+<style>
+/* voice-over video: scenes follow kit/voice/2026-11-01-scheduler.json */
+.sub{position:absolute;left:60px;right:60px;top:1600px;text-align:center;font-family:"Inter Display","Inter",sans-serif;font-weight:800;font-size:54px;line-height:1.2;opacity:0}
+.sub b{color:#FFC21A}
+.qt .time{display:flex;gap:16px;align-items:center;margin-top:26px;font-size:30px}
+.qt .time .box{background:#1f1f1f;border:1px solid #4a4a4a;border-radius:8px;padding:12px 20px;font-size:34px;font-weight:700;color:#fff}
+.big{position:absolute;left:0;right:0;text-align:center;font-size:200px;opacity:0}
+.clock{position:absolute;left:0;right:0;text-align:center;font-family:"Inter Display","Inter",sans-serif;font-weight:900;font-size:120px;opacity:0}
+.slow{position:absolute;left:120px;width:840px;opacity:0}
+.slow .r{height:40px;border-radius:12px;background:#1d2850;margin:26px 0;overflow:hidden}
+.slow .r i{display:block;height:100%;background:#ef4444}
+</style></head><body>
+<div class="bg"></div><div class="grid"></div>
+<div class="layer" id="h1" style="top:300px;opacity:1"><div class="h" id="h1t" style="font-size:96px">Big downloads <b>slowing your day?</b> 🐢</div></div>
+<div class="slow" id="slow" style="top:820px"><div class="r"><i style="width:12%"></i></div><div class="r"><i style="width:7%"></i></div><div class="r"><i style="width:18%"></i></div></div>
+<div class="shot" id="app" style="left:40px;top:560px;width:1000px"><img src="screens/app-main.webp"><div class="ring" id="rg"></div></div>
+<div class="qt" id="dlg" style="left:100px;top:1060px"><div class="tb"><img src="icon.svg">Scheduler<span class="x">✕</span></div>
+ <div class="bd"><div class="t1">Start the queue at</div>
+ <div class="time"><span class="box">02:00 AM</span><span class="box">Tonight ▾</span></div>
+ <div class="row"><div class="b">Cancel</div><div class="b def" id="save">Save</div></div></div></div>
+<div class="big" id="moon" style="top:430px">🌙</div><div class="clock" id="clk" style="top:700px">02:00</div>
+<div class="card" id="toast" style="position:absolute;left:80px;top:960px;opacity:0"><div class="top"><img src="icon.svg">game-update-part2.rar · 8.1 GB</div>
+ <div class="segs" id="segs"></div><div class="meta"><span id="spd">0 MB/s</span><span id="pct">0%</span></div></div>
+<div class="big" id="sun" style="top:330px">☀️</div>
+<div class="files" id="files" style="left:90px;top:640px"><div class="hd">📁 Downloads</div>
+ <div class="f">🗜️ Compressed › game-update-part2.rar<span>✓</span></div><div class="f">🎬 Video › Holiday trip 2026.mp4<span>✓</span></div>
+ <div class="f">💿 Compressed › ubuntu-24.04-desktop.iso<span>✓</span></div><div class="f">🛠️ Programs › setup-tools-v3.exe<span>✓</span></div></div>
+<div class="sub" id="sub"></div>
+<div class="disc" id="disc">Illustration. Real speed depends on your connection and the server.</div>
+<div class="cursor" id="cur"></div>
+<script src="lib.js"></script><script src="fx.js"></script><script src="realfx.js"></script><script>
+chrome(); endcard2('Download at night. <b>Done by morning.</b>'); $('#cur').innerHTML = CURSOR;
+splitWords($('#h1t'));
+const CAPS = [[3.8, 9.3, 'Click <b>Scheduler</b> → pick a time'],
+              [9.4, 13.7, 'Your downloads <b>wait in the queue</b>'],
+              [13.8, 18.5, 'At night they <b>start by themselves</b>'],
+              [18.6, 24.0, 'Morning: <b>everything done</b> ✓']];
+const segs = $('#segs'); for (let i = 0; i < 8; i++) segs.appendChild(document.createElement('div')).appendChild(document.createElement('i'));
+const rate = [1, .86, .93, .8, .97, .84, .9, .88]; const parts = makeParticles(60, 41);
+function frame(t) {
+  common(t); beatBg(t); streaks(t); flash(t, [24.0]); wipe(t, t < 6 ? 3.75 : t < 12 ? 9.35 : t < 16 ? 13.75 : t < 21 ? 18.55 : 24.0);
+  const c = CAPS.find(x => t >= x[0] && t < x[1]); const sub = $('#sub');
+  if (c) { if (sub.dataset.k !== String(c[0])) { sub.innerHTML = c[2]; sub.dataset.k = c[0]; } show(sub, t, c[0], c[1] - .05, .25); } else sub.style.opacity = 0;
+  $('#h1').style.display = t < 3.75 ? '' : 'none'; words($('#h1'), t, .2, .14, 3.7);
+  show($('#slow'), t, .6, 3.7); $('#slow').style.transform = `translateX(${t > 1.5 && t < 3.7 ? Math.sin(t * 30) * 4 : 0}px)`;
+  const app = $('#app'), cur = $('#cur');
+  if (t > 3.75 && t < 13.75) {
+    app.style.opacity = Math.min(ease(seg(t, 3.8, 4.1)), 1 - ease(seg(t, 13.4, 13.7)));
+    const A = [1, 800, 375, 540, 800], B = [1.6, 1187, 160, 700, 760], C = [1.7, 900, 409, 540, 820];
+    if (t < 9.4) cam(app, A, B, seg(t, 3.9, 4.5)); else cam(app, B, C, seg(t, 9.4, 10.0));
+  } else app.style.opacity = 0;
+  if (t > 4.6 && t < 5.9) cursorMove(cur, t, 4.6, 5.3, [960, 1750], at(app, 1187, 130), 5.85);
+  else if (t > 6.6 && t < 9.2) { const r = $('#save').getBoundingClientRect(); cursorMove(cur, t, 7.4, 8.4, [900, 1750], [r.left + r.width * .5, r.top + r.height * .6], 9.1); }
+  else cur.style.opacity = 0;
+  if (t > 4.5 && t < 5.9) ring($('#rg'), t, 4.5, 5.9, 1140, 95, 100, 75); else if (t > 10.1 && t < 13.7) ring($('#rg'), t, 10.1, 13.7, 278, 390, 1302, 40); else $('#rg').style.opacity = 0;
+  if (t > 5.6 && t < 9.35) { pop($('#dlg'), t, 5.6, 9.3); $('#save').className = t > 8.4 ? 'b hot' : 'b def'; } else $('#dlg').style.opacity = 0;
+  if (t > 13.75 && t < 18.55) {
+    show($('#moon'), t, 13.8, 18.5); show($('#clk'), t, 14.0, 18.5); pop($('#toast'), t, 14.4, 18.5);
+    const p = seg(t, 14.8, 18.2); let tot = 0;
+    segs.querySelectorAll('i').forEach((e, i) => { const v = clamp(p / rate[i] * .9); e.style.width = v * 100 + '%'; tot += v; });
+    const pp = Math.min(1, tot / 8); $('#pct').textContent = Math.round(pp * 100) + '%';
+    $('#spd').textContent = pp >= 1 ? 'Complete ✓' : lerp(0, 41.2, ease(seg(t, 14.8, 15.3))).toFixed(1) + ' MB/s · 8 parts';
+    $('#clk').textContent = '0' + (2 + Math.floor(seg(t, 14, 18.5) * 4)) + ':' + String(Math.floor(seg(t, 14, 18.5) * 240) % 60).padStart(2, '0');
+  } else { $('#moon').style.opacity = 0; $('#clk').style.opacity = 0; $('#toast').style.opacity = 0; }
+  show($('#disc'), t, 14.4, 18.5);
+  if (t > 18.55 && t < 24) { show($('#sun'), t, 18.6, 23.95); pop($('#files'), t, 19.0, 23.95); } else { $('#sun').style.opacity = 0; $('#files').style.opacity = 0; }
+  if (t < 24) burst(parts, t, 19.6, 540, 900); else burst(parts, t, 24.0, 540, 760);
+  if (t >= 24) { pop($('#end'), t, 24.0, null, .55); $('#end').style.transform += ` scale(${1 + pulse(t) * .02})`; } else $('#end').style.opacity = 0;
+}
+</script></body></html>

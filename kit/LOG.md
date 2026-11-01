@@ -12,3 +12,7 @@
 2026-10-30 13:00 | topic 13 | What is SwiftGrab? Install it in 3 steps (real screen recording) | media/2026-10-30/swiftgrab-install-3-steps.mp4
 2026-10-31 02:20 | topic 13+1+7 | Here's how to use SwiftGrab (first voice-over video) | media/2026-10-31/swiftgrab-how-to-use.mp4
 2026-10-31 12:00 | link story | link-1.jpg
+2026-10-31 21:35 | topic 16 (add-on) | Want to save a video from a web page, in the best quality? | media/2026-10-31/swiftgrab-quick-download.mp4
+2026-11-01 10:00 | topic 18 (add-on) | Need the PDF from an email, not just its preview picture? | media/2026-11-01/swiftgrab-attachment.mp4
+2026-11-01 13:00 | topic 3 | Big downloads slowing down your day? | media/2026-11-01/swiftgrab-scheduler.mp4
+2026-11-01 18:00 | topic 19 (add-on) | Want every picture from a page, without right clicking each one? | media/2026-11-01/swiftgrab-save-images.mp4
