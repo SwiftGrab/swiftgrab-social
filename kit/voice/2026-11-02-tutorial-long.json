@@ -1,0 +1,126 @@
+{
+ "voice": "af_heart",
+ "secs": 140,
+ "lines": [
+  {
+   "t": 0.6,
+   "text": "Hi! In this video, I'll show you how Swift Grab downloads files on your Windows PC. Zip files, pictures, videos, and more.",
+   "ch": "intro",
+   "dur": 8.11
+  },
+  {
+   "t": 9.26,
+   "text": "Swift Grab is a download manager. It splits each download into parts, so big files finish faster. And if your internet drops, it picks up right where it stopped.",
+   "ch": "intro",
+   "dur": 9.98
+  },
+  {
+   "t": 21.19,
+   "text": "First, get Swift Grab from get swift grab dot com, and install it.",
+   "ch": "setup",
+   "dur": 3.84
+  },
+  {
+   "t": 25.58,
+   "text": "Then add the free Swift Grab add-on to your browser. It works with Chrome, Edge, Brave and Firefox.",
+   "ch": "setup",
+   "dur": 6.29
+  },
+  {
+   "t": 32.42,
+   "text": "In Swift Grab, open Settings, then Browser, and copy the pairing code. Paste it into the add-on, and they are connected.",
+   "ch": "setup",
+   "dur": 7.1
+  },
+  {
+   "t": 41.48,
+   "text": "Let's download a zip file. On the website, just click the download link, like you always do.",
+   "ch": "zip",
+   "dur": 5.38
+  },
+  {
+   "t": 47.4,
+   "text": "Swift Grab catches the download, and shows you the file name, its size, and the folder it goes to.",
+   "ch": "zip",
+   "dur": 6.04
+  },
+  {
+   "t": 53.99,
+   "text": "Click Start. The file downloads in eight parts at the same time.",
+   "ch": "zip",
+   "dur": 3.67
+  },
+  {
+   "t": 58.21,
+   "text": "Done! Swift Grab sorts every file by type, so your zip is waiting in Downloads, in the Compressed folder.",
+   "ch": "zip",
+   "dur": 6.49
+  },
+  {
+   "t": 66.65,
+   "text": "It works the same way for any file. Programs, P D F files, music, or disk images.",
+   "ch": "any",
+   "dur": 5.76
+  },
+  {
+   "t": 72.96,
+   "text": "You can also click Add U R L, and paste a download link yourself.",
+   "ch": "any",
+   "dur": 4.01
+  },
+  {
+   "t": 77.52,
+   "text": "Need to stop? Click Pause. Later, click Resume, and it continues, even after you restart your PC.",
+   "ch": "any",
+   "dur": 6.49
+  },
+  {
+   "t": 85.95,
+   "text": "Now, pictures. Move your mouse over a picture on a web page, and a small Swift Grab bar appears.",
+   "ch": "pics",
+   "dur": 5.87
+  },
+  {
+   "t": 92.37,
+   "text": "Click the lightning button, and the picture is saved in full size, right away.",
+   "ch": "pics",
+   "dur": 4.35
+  },
+  {
+   "t": 97.27,
+   "text": "Want every picture on the page? Open the add-on, choose Save all images, then This tab.",
+   "ch": "pics",
+   "dur": 5.08
+  },
+  {
+   "t": 104.3,
+   "text": "Videos work the same way. Move your mouse over the video, and click the lightning button.",
+   "ch": "video",
+   "dur": 4.69
+  },
+  {
+   "t": 109.54,
+   "text": "Swift Grab saves it in the best quality, into your Video folder.",
+   "ch": "video",
+   "dur": 3.67
+  },
+  {
+   "t": 115.16,
+   "text": "Big downloads can wait for the night. Click Scheduler, pick a time, and wake up to everything done.",
+   "ch": "extra",
+   "dur": 5.59
+  },
+  {
+   "t": 122.7,
+   "text": "Swift Grab works on Windows 10 and 11. Try it free for thirty days, with every feature. Then buy it once. No subscription.",
+   "ch": "outro",
+   "dur": 8.0
+  },
+  {
+   "t": 131.25,
+   "text": "Get it at get swift grab dot com. Thanks for watching!",
+   "ch": "outro",
+   "dur": 3.14
+  }
+ ]
+}

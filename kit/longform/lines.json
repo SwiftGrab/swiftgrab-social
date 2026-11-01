@@ -1,0 +1,22 @@
+[
+ ["intro","Hi! In this video, I'll show you how Swift Grab downloads files on your Windows PC. Zip files, pictures, videos, and more."],
+ ["intro","Swift Grab is a download manager. It splits each download into parts, so big files finish faster. And if your internet drops, it picks up right where it stopped."],
+ ["setup","First, get Swift Grab from get swift grab dot com, and install it."],
+ ["setup","Then add the free Swift Grab add-on to your browser. It works with Chrome, Edge, Brave and Firefox."],
+ ["setup","In Swift Grab, open Settings, then Browser, and copy the pairing code. Paste it into the add-on, and they are connected."],
+ ["zip","Let's download a zip file. On the website, just click the download link, like you always do."],
+ ["zip","Swift Grab catches the download, and shows you the file name, its size, and the folder it goes to."],
+ ["zip","Click Start. The file downloads in eight parts at the same time."],
+ ["zip","Done! Swift Grab sorts every file by type, so your zip is waiting in Downloads, in the Compressed folder."],
+ ["any","It works the same way for any file. Programs, P D F files, music, or disk images."],
+ ["any","You can also click Add U R L, and paste a download link yourself."],
+ ["any","Need to stop? Click Pause. Later, click Resume, and it continues, even after you restart your PC."],
+ ["pics","Now, pictures. Move your mouse over a picture on a web page, and a small Swift Grab bar appears."],
+ ["pics","Click the lightning button, and the picture is saved in full size, right away."],
+ ["pics","Want every picture on the page? Open the add-on, choose Save all images, then This tab."],
+ ["video","Videos work the same way. Move your mouse over the video, and click the lightning button."],
+ ["video","Swift Grab saves it in the best quality, into your Video folder."],
+ ["extra","Big downloads can wait for the night. Click Scheduler, pick a time, and wake up to everything done."],
+ ["outro","Swift Grab works on Windows 10 and 11. Try it free for thirty days, with every feature. Then buy it once. No subscription."],
+ ["outro","Get it at get swift grab dot com. Thanks for watching!"]
+]
