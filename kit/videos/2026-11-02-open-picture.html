@@ -1,0 +1,70 @@
+<!doctype html><html><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="fx.css"><link rel="stylesheet" href="real.css">
+<style>
+/* voice-over video: scenes follow kit/voice/2026-11-02-open-picture.json */
+.sub{position:absolute;left:60px;right:60px;top:1600px;text-align:center;font-family:"Inter Display","Inter",sans-serif;font-weight:800;font-size:54px;line-height:1.2;opacity:0}
+.sub b{color:#FFC21A}
+.art{margin:30px 36px 20px;display:grid;grid-template-columns:2fr 1fr;gap:24px}
+.art .txt i{display:block;height:18px;border-radius:9px;background:#e2e8f0;margin-bottom:16px}
+.art .pic{height:300px;border-radius:14px;background:linear-gradient(135deg,#f59e0b,#ef4444 55%,#7c2d12)}
+.ads{margin:0 36px 36px;height:90px;border-radius:12px;background:#f1f5f9;border:2px dashed #cbd5e1}
+.sgbar{position:absolute;display:flex;align-items:stretch;border-radius:14px;overflow:hidden;background:#1565c0;color:#fff;
+  box-shadow:0 8px 30px rgba(0,0,0,.45);font-family:"Segoe UI","Inter",sans-serif;font-size:32px;opacity:0;white-space:nowrap;z-index:4}
+.sgbar span{display:flex;align-items:center;padding:16px 16px;gap:10px}
+.sgbar .grip{color:rgba(255,255,255,.75);border-right:2px solid rgba(255,255,255,.25);padding:16px 10px}
+.sgbar .q,.sgbar .o,.sgbar .x{border-left:2px solid rgba(255,255,255,.25);padding:16px 20px}
+.sgbar .on{background:#FFC21A;color:#14110a}
+.sgbar .ok{background:#2e7d32}
+.tab{position:absolute;left:40px;width:1000px;height:1010px;border-radius:24px;overflow:hidden;background:#0e0e0e;box-shadow:0 40px 100px rgba(0,0,0,.6);opacity:0}
+.tab .tb{height:70px;background:#2b2b2b;display:flex;align-items:flex-end;padding:0 20px;gap:8px}
+.tab .tb span{background:#0e0e0e;color:#ddd;font-size:24px;padding:14px 22px;border-radius:14px 14px 0 0}
+.tab .tb span.old{background:#3a3a3a;color:#999}
+.tab .big{position:absolute;left:40px;right:40px;top:150px;bottom:60px;border-radius:6px;background:linear-gradient(135deg,#f59e0b,#ef4444 55%,#7c2d12)}
+.tab .dim{position:absolute;left:0;right:0;bottom:16px;text-align:center;font-size:24px;color:#999}
+.saved{position:absolute;left:80px;right:80px;top:1340px;padding:26px 30px;border-radius:22px;background:#121B3A;border:2px solid rgba(61,220,151,.6);font-size:36px;font-weight:800;opacity:0}
+.saved small{display:block;font-size:28px;color:#A7B3D6;margin-top:8px}
+</style></head><body>
+<div class="bg"></div><div class="grid"></div>
+<div class="layer" id="h1" style="top:240px;opacity:1"><div class="h" id="h1t" style="font-size:90px">The picture, <b>full size</b>, nothing else 🖼️</div></div>
+<div class="page" id="pg" style="left:60px;top:640px"><div class="ub"><i></i><i></i><i></i><div class="u">example.com/blog/sunset-photos</div></div>
+ <div class="art"><div class="txt"><i></i><i></i><i style="width:70%"></i><i></i><i style="width:80%"></i><i></i><i style="width:60%"></i></div><div class="pic" id="pic"></div></div>
+ <div class="ads"></div></div>
+<div class="sgbar" id="bar"><span class="grip">⠿</span><span>⬇ Download image</span><span class="q" id="q">⚡</span><span class="o" id="o">↗</span><span class="x">✕</span></div>
+<div class="tab" id="tab" style="top:420px"><div class="tb"><span class="old">Sunset photos – blog</span><span>sunset-0412.jpg (4000×3000)</span></div><div class="big" id="big"></div>
+ <div class="dim">4000 × 3000 · full size</div></div>
+<div class="saved" id="saved">✓ sunset-0412.jpg saved<small>Full size · Downloads › Images</small></div>
+<div class="sub" id="sub"></div>
+<div class="disc" id="disc">Only download pictures you have the right to save.</div>
+<div class="cursor" id="cur"></div>
+<script src="lib.js"></script><script src="fx.js"></script><script src="realfx.js"></script><script>
+chrome(); endcard2('Any picture. <b>Full size.</b>'); $('#cur').innerHTML = CURSOR;
+splitWords($('#h1t'));
+const CAPS = [[4.3, 9.5, 'Hover the picture → the <b>SwiftGrab bar</b> appears'],
+              [9.6, 13.3, 'Click the <b>↗ arrow</b>'],
+              [13.4, 18.5, 'It opens <b>alone, full size</b>, in a new tab'],
+              [18.6, 24.0, 'Like it? <b>⚡</b> saves it right away']];
+const parts = makeParticles(60, 71);
+function frame(t) {
+  common(t); beatBg(t); streaks(t); flash(t, [24.0]); wipe(t, t < 6 ? 4.2 : t < 11 ? 9.55 : t < 16 ? 13.35 : t < 21 ? 18.55 : 24.0);
+  const c = CAPS.find(x => t >= x[0] && t < x[1]); const sub = $('#sub');
+  if (c) { if (sub.dataset.k !== String(c[0])) { sub.innerHTML = c[2]; sub.dataset.k = c[0]; } show(sub, t, c[0], c[1] - .05, .25); } else sub.style.opacity = 0;
+  $('#h1').style.display = t < 4.2 ? '' : 'none'; words($('#h1'), t, .2, .13, 4.1);
+  const pg = $('#pg'), cur = $('#cur'), bar = $('#bar');
+  if (t < 13.35) { pop(pg, t, .5, 13.3); pg.style.top = t < 4.2 ? '640px' : lerp(640, 460, ease(seg(t, 4.2, 4.8))) + 'px'; } else pg.style.opacity = 0;
+  const pr = $('#pic').getBoundingClientRect();
+  if (t > 6.2 && t < 13.35) { bar.style.left = Math.max(40, pr.right - 520) + 'px'; bar.style.top = (pr.top - 90) + 'px'; pop(bar, t, 6.2, 13.3, .35); }
+  else if (t > 19.0 && t < 24) { const b = $('#big').getBoundingClientRect(); bar.style.left = (b.right - 540) + 'px'; bar.style.top = (b.top + 20) + 'px'; pop(bar, t, 19.0, 23.9, .35); }
+  else bar.style.opacity = 0;
+  $('#o').className = t > 11.2 && t < 13.4 ? 'o on' : 'o';
+  $('#q').className = t > 21.2 ? 'q ok' : 'q'; $('#q').textContent = t > 21.2 ? '✓' : '⚡';
+  if (t > 4.6 && t < 12.6) {
+    if (t < 10.0) cursorMove(cur, t, 4.8, 5.9, [900, 1800], [pr.left + pr.width * .5, pr.top + pr.height * .5], 12.5);
+    else { const r = $('#o').getBoundingClientRect(); cursorMove(cur, t, 10.0, 11.0, [pr.left + pr.width * .5, pr.top + pr.height * .5], [r.left + r.width * .45, r.top + r.height * .6], 12.5); }
+  } else if (t > 19.4 && t < 23) { const r = $('#q').getBoundingClientRect(); cursorMove(cur, t, 19.6, 20.9, [900, 1700], [r.left + r.width * .45, r.top + r.height * .6], 22.9); }
+  else cur.style.opacity = 0;
+  if (t > 13.35 && t < 24) { pop($('#tab'), t, 13.4, 23.95); $('#big').style.transform = `scale(${lerp(.92, 1, ease(seg(t, 13.6, 15)))})`; } else $('#tab').style.opacity = 0;
+  if (t > 21.2 && t < 24) pop($('#saved'), t, 21.3, 23.95); else $('#saved').style.opacity = 0;
+  show($('#disc'), t, 13.6, 23.9);
+  if (t < 24) burst(parts, t, 21.3, 540, 1300); else burst(parts, t, 24.0, 540, 760);
+  if (t >= 24) { pop($('#end'), t, 24.0, null, .55); $('#end').style.transform += ` scale(${1 + pulse(t) * .02})`; } else $('#end').style.opacity = 0;
+}
+</script></body></html>

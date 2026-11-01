@@ -1,0 +1,79 @@
+<!doctype html><html><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="fx.css"><link rel="stylesheet" href="real.css">
+<style>
+/* voice-over video: scenes follow kit/voice/2026-11-02-eight-parts.json */
+.sub{position:absolute;left:60px;right:60px;top:1600px;text-align:center;font-family:"Inter Display","Inter",sans-serif;font-weight:800;font-size:54px;line-height:1.2;opacity:0}
+.sub b{color:#FFC21A}
+.slow{position:absolute;left:120px;width:840px;opacity:0}
+.slow .r{height:44px;border-radius:12px;background:#1d2850;overflow:hidden}
+.slow .r i{display:block;height:100%;width:6%;background:#ef4444}
+.slow .l{font-size:34px;color:#A7B3D6;margin-top:18px;text-align:center;font-weight:700}
+.split{position:absolute;left:90px;right:90px;opacity:0}
+.split .file{margin:0 auto 40px;width:600px;white-space:nowrap;padding:26px;border-radius:22px;background:#121B3A;border:2px solid rgba(47,123,255,.6);font-size:36px;font-weight:800;text-align:center}
+.split .p{display:flex;align-items:center;gap:20px;margin:14px 0;font-size:28px;font-weight:700;color:#A7B3D6;opacity:0}
+.split .p .r{flex:1;height:30px;border-radius:10px;background:#1d2850;overflow:hidden}
+.split .p .r i{display:block;height:100%;width:0;background:linear-gradient(90deg,#2F7BFF,#3EE0FF)}
+.qt .field{display:flex;align-items:center;gap:18px;margin-top:22px;font-size:28px}
+.qt .field .v{flex:1;background:#1c1c1c;border:1px solid #4a4a4a;border-radius:8px;padding:12px 16px;color:#fff;white-space:nowrap;overflow:hidden}
+</style></head><body>
+<div class="bg"></div><div class="grid"></div>
+<div class="layer" id="h1" style="top:300px;opacity:1"><div class="h" id="h1t" style="font-size:100px">Big downloads <b>taking forever?</b> ⏳</div></div>
+<div class="slow" id="slow" style="top:900px"><div class="r"><i id="sl"></i></div><div class="l" id="slt">1 connection · 2 hours left</div></div>
+<div class="split" id="split" style="top:560px"><div class="file">🗜️ ubuntu-desktop.iso · 5.7 GB</div></div>
+<div class="shot" id="app" style="left:40px;top:560px;width:1000px"><img src="screens/app-main.webp"><div class="ring" id="rg"></div></div>
+<div class="qt" id="dlg" style="left:100px;top:1000px"><div class="tb"><img src="icon.svg">Add URL<span class="x">✕</span></div>
+ <div class="bd"><div class="field"><span class="v" id="lnk"></span></div>
+ <div class="row" style="justify-content:flex-end"><div class="b">Cancel</div><div class="b def" id="go">Start</div></div></div></div>
+<div class="card" id="toast" style="position:absolute;left:80px;top:760px;opacity:0"><div class="top"><img src="icon.svg">ubuntu-desktop.iso · 5.7 GB</div>
+ <div class="segs" id="segs"></div><div class="meta"><span id="spd">0 MB/s</span><span id="pct">0%</span></div></div>
+<div class="files" id="files" style="left:90px;top:640px"><div class="hd">📁 Downloads</div>
+ <div class="f" id="nf">💿 Compressed › ubuntu-desktop.iso<span>5.7 GB ✓</span></div><div class="f">🎬 Video › Holiday trip 2026.mp4<span>1.2 GB</span></div>
+ <div class="f">🎵 Music › podcast-episode-112.mp3<span>96 MB</span></div><div class="f">🛠️ Programs › setup-tools-v3.exe<span>312 MB</span></div></div>
+<div class="sub" id="sub"></div>
+<div class="disc" id="disc">Illustration. Real speed depends on your connection and the server.</div>
+<div class="cursor" id="cur"></div>
+<script src="lib.js"></script><script src="fx.js"></script><script src="realfx.js"></script><script>
+chrome(); endcard2('8 parts. <b>One fast download.</b>'); $('#cur').innerHTML = CURSOR;
+splitWords($('#h1t'));
+for (let i = 0; i < 8; i++) $('#split').insertAdjacentHTML('beforeend', `<div class="p">Part ${i + 1}<div class="r"><i></i></div></div>`);
+const CAPS = [[4.3, 9.5, 'One file → <b>8 parts at once</b>'],
+              [9.6, 13.3, '<b>Add URL</b> → paste → <b>Start</b>'],
+              [13.4, 18.5, 'All <b>8 parts</b> fill up together'],
+              [18.6, 24.0, 'Ready, in the <b>right folder</b> ✓']];
+const segs = $('#segs'); for (let i = 0; i < 8; i++) segs.appendChild(document.createElement('div')).appendChild(document.createElement('i'));
+const rate = [1, .86, .93, .8, .97, .84, .9, .88]; const parts = makeParticles(60, 81);
+function frame(t) {
+  common(t); beatBg(t); streaks(t); flash(t, [24.0]); wipe(t, t < 6 ? 4.2 : t < 11 ? 9.55 : t < 16 ? 13.35 : t < 21 ? 18.55 : 24.0);
+  const c = CAPS.find(x => t >= x[0] && t < x[1]); const sub = $('#sub');
+  if (c) { if (sub.dataset.k !== String(c[0])) { sub.innerHTML = c[2]; sub.dataset.k = c[0]; } show(sub, t, c[0], c[1] - .05, .25); } else sub.style.opacity = 0;
+  $('#h1').style.display = t < 4.2 ? '' : 'none'; words($('#h1'), t, .2, .14, 4.1);
+  if (t < 4.2) { show($('#slow'), t, .8, 4.1); $('#sl').style.width = lerp(3, 8, seg(t, .8, 4)) + '%'; } else $('#slow').style.opacity = 0;
+  if (t > 4.2 && t < 9.55) { show($('#split'), t, 4.3, 9.5);
+    $('#split').querySelectorAll('.p').forEach((p, i) => { pop(p, t, 5.0 + i * .18); p.querySelector('i').style.width = clamp(seg(t, 6.6, 9.3) / rate[i] * .7) * 100 + '%'; });
+  } else $('#split').style.opacity = 0;
+  const app = $('#app'), cur = $('#cur');
+  if (t > 9.55 && t < 13.35) {
+    app.style.opacity = Math.min(ease(seg(t, 9.6, 9.9)), 1 - ease(seg(t, 13.0, 13.3)));
+    cam(app, [1, 800, 375, 540, 800], [1.6, 84, 130, 300, 760], seg(t, 9.7, 10.3));
+    ring($('#rg'), t, 10.3, 11.3, 30, 92, 110, 80);
+    pop($('#dlg'), t, 11.0, 13.3);
+    const L = 'https://example.com/files/ubuntu-desktop.iso';
+    $('#lnk').textContent = L.slice(0, Math.round(L.length * seg(t, 11.3, 12.2)));
+    if (t < 11.2) cursorMove(cur, t, 9.9, 10.7, [900, 1750], at(app, 84, 130), 11.2);
+    else { const r = $('#go').getBoundingClientRect(); cursorMove(cur, t, 12.1, 12.7, [700, 1500], [r.left + r.width * .5, r.top + r.height * .6], 13.2); }
+    $('#go').className = t > 12.7 ? 'b hot' : 'b def';
+  } else { app.style.opacity = 0; $('#dlg').style.opacity = 0; $('#rg').style.opacity = 0; cur.style.opacity = 0; }
+  if (t > 13.35 && t < 18.55) {
+    pop($('#toast'), t, 13.4, 18.5);
+    const p = seg(t, 13.8, 17.8); let tot = 0;
+    segs.querySelectorAll('i').forEach((e, i) => { const v = clamp(p / rate[i] * .9); e.style.width = v * 100 + '%'; tot += v; });
+    const pp = Math.min(1, tot / 8); $('#pct').textContent = Math.round(pp * 100) + '%';
+    $('#spd').textContent = pp >= 1 ? 'Complete ✓' : lerp(0, 44.8, ease(seg(t, 13.8, 14.3))).toFixed(1) + ' MB/s · 8 parts';
+  } else $('#toast').style.opacity = 0;
+  show($('#disc'), t, 13.6, 18.5);
+  if (t > 18.55 && t < 24) { pop($('#files'), t, 18.7, 23.95); const x = seg(t, 19.6, 20.1);
+    $('#nf').style.background = `rgba(61,220,151,${.25 * clamp(x * 2)})`; $('#nf').style.transform = `scale(${1 + .04 * Math.sin(Math.PI * x)})`;
+  } else $('#files').style.opacity = 0;
+  if (t < 24) burst(parts, t, t < 19.5 ? 17.8 : 19.7, 540, t < 19.5 ? 900 : 760); else burst(parts, t, 24.0, 540, 760);
+  if (t >= 24) { pop($('#end'), t, 24.0, null, .55); $('#end').style.transform += ` scale(${1 + pulse(t) * .02})`; } else $('#end').style.opacity = 0;
+}
+</script></body></html>

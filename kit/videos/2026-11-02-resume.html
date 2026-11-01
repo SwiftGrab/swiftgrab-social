@@ -1,0 +1,65 @@
+<!doctype html><html><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="fx.css"><link rel="stylesheet" href="real.css">
+<style>
+/* voice-over video: scenes follow kit/voice/2026-11-02-resume.json */
+.sub{position:absolute;left:60px;right:60px;top:1600px;text-align:center;font-family:"Inter Display","Inter",sans-serif;font-weight:800;font-size:54px;line-height:1.2;opacity:0}
+.sub b{color:#FFC21A}
+.wifi{position:absolute;left:0;right:0;text-align:center;font-size:170px;opacity:0}
+.keep{position:absolute;left:80px;right:80px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;opacity:0}
+.keep div{background:#121B3A;border:2px solid rgba(61,220,151,.5);border-radius:16px;padding:18px 0;text-align:center;font-size:30px;font-weight:800;color:#3DDC97}
+</style></head><body>
+<div class="bg"></div><div class="grid"></div>
+<div class="layer" id="h1" style="top:280px;opacity:1"><div class="h" id="h1t" style="font-size:96px">Wi-Fi dropped at <b>78%</b>? 📶</div></div>
+<div class="wifi" id="wifi" style="top:1180px">📵</div>
+<div class="card" id="toast" style="position:absolute;left:80px;top:760px;opacity:0"><div class="top"><img src="icon.svg">game-update-part2.rar · 8.1 GB</div>
+ <div class="segs" id="segs"></div><div class="meta"><span id="spd">Connection lost</span><span id="pct">78%</span></div></div>
+<div class="keep" id="keep" style="top:1080px"><div>Part 1 ✓</div><div>Part 2 ✓</div><div>Part 3 ✓</div><div>Part 4 ✓</div><div>Part 5 ✓</div><div>Part 6 ✓</div><div>Part 7 ✓</div><div>Part 8 ✓</div></div>
+<div class="shot" id="app" style="left:40px;top:560px;width:1000px"><img src="screens/app-main.webp"><div class="ring" id="rg"></div></div>
+<div class="files" id="files" style="left:90px;top:640px"><div class="hd">📁 Downloads</div>
+ <div class="f" id="nf">🗜️ Compressed › game-update-part2.rar<span>8.1 GB ✓</span></div><div class="f">🎬 Video › Holiday trip 2026.mp4<span>1.2 GB</span></div>
+ <div class="f">💿 Compressed › ubuntu-24.04-desktop.iso<span>5.7 GB</span></div><div class="f">🛠️ Programs › setup-tools-v3.exe<span>312 MB</span></div></div>
+<div class="sub" id="sub"></div>
+<div class="disc" id="disc">Illustration. Real speed depends on your connection and the server.</div>
+<div class="cursor" id="cur"></div>
+<script src="lib.js"></script><script src="fx.js"></script><script src="realfx.js"></script><script>
+chrome(); endcard2('Wi-Fi drops. <b>Downloads don\'t.</b>'); $('#cur').innerHTML = CURSOR;
+splitWords($('#h1t'));
+const CAPS = [[4.3, 9.5, 'Nothing is lost: SwiftGrab <b>keeps every part</b>'],
+              [9.6, 13.3, 'Back online? Click <b>Resume</b>'],
+              [13.4, 18.5, 'It continues <b>right where it stopped</b>'],
+              [18.6, 24.0, 'No starting over. <b>Big files finish</b> ✓']];
+const segs = $('#segs'); for (let i = 0; i < 8; i++) segs.appendChild(document.createElement('div')).appendChild(document.createElement('i'));
+const parts = makeParticles(60, 61);
+function setP(p) { segs.querySelectorAll('i').forEach((e, i) => e.style.width = Math.min(100, p * 100 * (0.94 + 0.012 * i)) + '%'); }
+function frame(t) {
+  common(t); beatBg(t); streaks(t); flash(t, [24.0]); wipe(t, t < 6 ? 4.2 : t < 11 ? 9.55 : t < 16 ? 13.35 : t < 21 ? 18.55 : 24.0);
+  const c = CAPS.find(x => t >= x[0] && t < x[1]); const sub = $('#sub');
+  if (c) { if (sub.dataset.k !== String(c[0])) { sub.innerHTML = c[2]; sub.dataset.k = c[0]; } show(sub, t, c[0], c[1] - .05, .25); } else sub.style.opacity = 0;
+  $('#h1').style.display = t < 4.2 ? '' : 'none'; words($('#h1'), t, .2, .14, 4.1);
+  const card = $('#toast'), cur = $('#cur');
+  // download card: stuck at 78% (hook + parts kept), then continues to 100% after Resume
+  if ((t > .6 && t < 9.55) || (t > 13.35 && t < 18.55)) {
+    pop(card, t, t < 10 ? .6 : 13.4, t < 10 ? 9.5 : 18.5);
+    const p = t < 10 ? lerp(.7, .78, ease(seg(t, .6, 1.6))) : lerp(.78, 1, seg(t, 13.9, 17.6));
+    setP(p); $('#pct').textContent = Math.round(Math.min(1, p) * 100) + '%';
+    $('#spd').textContent = t < 10 ? (t < 4.3 ? '⚠ Connection lost' : 'Paused · 78% kept') : p >= 1 ? 'Complete ✓' : 'Resumed ✓ · ' + lerp(0, 38.6, ease(seg(t, 13.9, 14.4))).toFixed(1) + ' MB/s';
+    $('#spd').className = t < 4.3 ? 'amber' : t > 13 ? 'green' : '';
+    card.style.top = t < 4.2 ? '760px' : t < 10 ? lerp(760, 620, ease(seg(t, 4.2, 4.7))) + 'px' : '760px';
+  } else card.style.opacity = 0;
+  if (t < 4.2) { show($('#wifi'), t, 1.4, 4.1); $('#wifi').style.transform += ` scale(${1 + .06 * Math.sin(t * 8)})`; } else $('#wifi').style.opacity = 0;
+  if (t > 4.2 && t < 9.55) { show($('#keep'), t, 4.6, 9.5); [...$('#keep').children].forEach((d, i) => pop(d, t, 5.2 + i * .25)); } else $('#keep').style.opacity = 0;
+  // the real app: click Resume
+  const app = $('#app');
+  if (t > 9.55 && t < 13.35) {
+    app.style.opacity = Math.min(ease(seg(t, 9.6, 9.9)), 1 - ease(seg(t, 13.0, 13.3)));
+    cam(app, [1, 800, 375, 540, 800], [1.7, 469, 130, 540, 760], seg(t, 9.7, 10.4));
+    ring($('#rg'), t, 10.5, 13.2, 425, 92, 90, 80);
+    cursorMove(cur, t, 10.6, 11.6, [900, 1750], at(app, 469, 130), 13.1);
+  } else { app.style.opacity = 0; $('#rg').style.opacity = 0; cur.style.opacity = 0; }
+  show($('#disc'), t, 13.6, 18.5);
+  if (t > 18.55 && t < 24) { pop($('#files'), t, 18.7, 23.95); const x = seg(t, 19.6, 20.1);
+    $('#nf').style.background = `rgba(61,220,151,${.25 * clamp(x * 2)})`; $('#nf').style.transform = `scale(${1 + .04 * Math.sin(Math.PI * x)})`;
+  } else $('#files').style.opacity = 0;
+  if (t < 24) burst(parts, t, t < 19.5 ? 17.6 : 19.7, 540, t < 19.5 ? 900 : 760); else burst(parts, t, 24.0, 540, 760);
+  if (t >= 24) { pop($('#end'), t, 24.0, null, .55); $('#end').style.transform += ` scale(${1 + pulse(t) * .02})`; } else $('#end').style.opacity = 0;
+}
+</script></body></html>
