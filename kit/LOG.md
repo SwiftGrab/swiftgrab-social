@@ -21,3 +21,6 @@
 2026-11-02 13:00 | topic 17 (add-on) | Want to see a picture in full size, without the page around it? | media/2026-11-02/swiftgrab-open-picture.mp4
 2026-11-02 15:00 | longform (YouTube video) | How to Download Files Faster on Windows – SwiftGrab Full Tutorial | media/2026-11-02/swiftgrab-tutorial-full.mp4
 2026-11-02 18:00 | topic 2 | Big downloads taking forever? | media/2026-11-02/swiftgrab-eight-parts.mp4
+2026-11-03 10:00 | topic 15 | Got a long list of files to download? | media/2026-11-03/swiftgrab-queue.mp4
+2026-11-03 13:00 | topic 20 (add-on) | Browsing lots of pages, and want to keep the pictures you saw? | media/2026-11-03/swiftgrab-capture.mp4
+2026-11-03 18:00 | topic 21 (add-on) | Want your browser and Swift Grab to work together? | media/2026-11-03/swiftgrab-pairing.mp4
