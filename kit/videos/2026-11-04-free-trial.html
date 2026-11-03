@@ -1,0 +1,57 @@
+<!doctype html><html><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="fx.css"><link rel="stylesheet" href="real.css">
+<style>
+/* voice-over video: scenes follow kit/voice/2026-11-04-free-trial.json */
+.sub{position:absolute;left:60px;right:60px;top:1600px;text-align:center;font-family:"Inter Display","Inter",sans-serif;font-weight:800;font-size:54px;line-height:1.2;opacity:0}
+.sub b{color:#FFC21A}
+.chips3{position:absolute;left:60px;right:60px;display:flex;flex-direction:column;align-items:center;gap:22px;opacity:0}
+.chips3 span{font-size:46px;font-weight:900;padding:20px 38px;border-radius:999px;background:#121B3A;border:3px solid rgba(61,220,151,.6);opacity:0}
+.qt .field{display:flex;align-items:center;gap:18px;margin-top:20px;font-size:28px}
+.qt .field label{width:150px;color:#bdbdbd}
+.qt .field .v{flex:1;background:#1c1c1c;border:1px solid #4a4a4a;border-radius:8px;padding:12px 16px;color:#fff;white-space:nowrap;overflow:hidden}
+.big30{position:absolute;left:0;right:0;text-align:center;opacity:0}
+.big30 .n{font-family:"Inter Display","Inter",sans-serif;font-weight:900;font-size:300px;line-height:1;color:#FFC21A}
+.big30 .l{font-size:70px;font-weight:900;margin-top:10px}
+.big30 .k{font-size:44px;color:#A7B3D6;font-weight:700;margin-top:20px}
+.dlbtn{display:inline-block;margin:24px 36px 40px;font-size:34px;font-weight:800;color:#fff;background:#2F7BFF;padding:20px 40px;border-radius:14px}
+.pg2 h5{margin:30px 36px 0;font-size:40px}
+.inst{position:absolute;left:80px;right:80px;padding:28px 32px;border-radius:22px;background:#2b2b2b;border:1px solid #3c3c3c;font-family:"Segoe UI","Inter",sans-serif;font-size:34px;opacity:0}
+.inst .bar{background:#1d1d1d}
+.pr{position:absolute;left:0;right:0;text-align:center;opacity:0}
+.nosub{position:absolute;left:260px;right:260px;text-align:center;font-size:40px;font-weight:900;padding:22px;border-radius:20px;background:#2a1215;border:3px solid #ef4444;color:#fca5a5;opacity:0}
+</style></head><body>
+<div class="bg"></div><div class="grid"></div>
+<div class="layer" id="h1" style="top:280px;opacity:1"><div class="h" id="h1t" style="font-size:96px">Try it <b>before you pay</b> 🎁</div></div>
+<div class="big30" id="b30" style="top:560px"><div class="n">30</div><div class="l">days free</div><div class="k">Every feature included</div></div>
+<div class="page pg2" id="pg" style="left:60px;top:560px"><div class="ub"><i></i><i></i><i></i><div class="u">getswiftgrab.com</div></div>
+ <h5>SwiftGrab for Windows</h5><p>Free 30-day trial · Windows 10 &amp; 11</p><span class="dlbtn" id="dl">⬇ Download free</span></div>
+<div class="inst" id="inst" style="top:1080px"><div id="it">Installing SwiftGrab…</div><div class="bar"><div class="f" id="if"></div></div></div>
+<div class="pr" id="pr" style="top:560px"><div class="price"><div class="n">Single PC</div><div class="p">$19.99</div><div class="s">Buy once</div></div><div class="price"><div class="n">Family · 3 PCs</div><div class="p">$29.99</div><div class="s">Buy once</div></div></div>
+<div class="nosub" id="ns" style="top:1000px">✗ No subscription</div>
+<div class="chips3" id="ch" style="top:640px"><span>✓ Yours to keep</span><span>✓ Updates itself</span><span>✓ No ads, no tracking</span></div>
+<div class="sub" id="sub"></div>
+<div class="cursor" id="cur"></div>
+<script src="lib.js"></script><script src="fx.js"></script><script src="realfx.js"></script><script>
+chrome(); endcard2('Free for 30 days. <b>Then yours.</b>'); $('#cur').innerHTML = CURSOR;
+splitWords($('#h1t'));
+const CAPS = [[4.3, 9.5, '<b>Free for 30 days</b>, every feature'],
+              [9.6, 13.3, 'Download → install <b>in a minute</b>'],
+              [13.4, 18.5, 'Then <b>buy once</b>: no subscription'],
+              [18.6, 24.0, 'Yours to keep, <b>updates itself</b>']];
+const parts = makeParticles(60, 96);
+function frame(t) {
+  common(t); beatBg(t); streaks(t); flash(t, [24.0]); wipe(t, t < 6 ? 4.2 : t < 11 ? 9.55 : t < 16 ? 13.35 : t < 21 ? 18.55 : 24.0);
+  const c = CAPS.find(x => t >= x[0] && t < x[1]); const sub = $("#sub");
+  if (c) { if (sub.dataset.k !== String(c[0])) { sub.innerHTML = c[2]; sub.dataset.k = c[0]; } show(sub, t, c[0], c[1] - .05, .25); } else sub.style.opacity = 0;
+  $("#h1").style.display = t < 4.2 ? "" : "none"; words($("#h1"), t, .2, .13, 4.1);
+  if (t > 4.2 && t < 9.55) { pop($('#b30'), t, 4.3, 9.5); $('#b30').style.transform += ` scale(${1 + pulse(t) * .03})`; } else $('#b30').style.opacity = 0;
+  const pg = $('#pg'), cur = $('#cur');
+  if (t > 9.55 && t < 13.35) { pop(pg, t, 9.6, 13.3); const q = $('#dl').getBoundingClientRect();
+    cursorMove(cur, t, 9.8, 10.6, [900, 1750], [q.left + q.width * .5, q.top + q.height * .6], 11.2);
+    pop($('#inst'), t, 10.9, 13.3); $('#if').style.width = seg(t, 11.1, 12.6) * 100 + '%'; $('#it').textContent = t > 12.6 ? '✓ SwiftGrab installed – trial started' : 'Installing SwiftGrab…'; }
+  else { pg.style.opacity = 0; $('#inst').style.opacity = 0; cur.style.opacity = 0; }
+  if (t > 13.35 && t < 18.55) { show($('#pr'), t, 13.4, 18.5); pop($('#ns'), t, 15.2, 18.5); } else { $('#pr').style.opacity = 0; $('#ns').style.opacity = 0; }
+  if (t > 18.55 && t < 24) { $('#ch').style.opacity = 1 - seg(t, 23.6, 23.95); [...$('#ch').children].forEach((s, i) => pop(s, t, 18.8 + i * .6)); } else $('#ch').style.opacity = 0;
+  if (t < 24) burst(parts, t, t < 16 ? 4.6 : 19.9, 540, t < 16 ? 800 : 760); else burst(parts, t, 24.0, 540, 760);
+  if (t >= 24) { pop($("#end"), t, 24.0, null, .55); $("#end").style.transform += ` scale(${1 + pulse(t) * .02})`; } else $("#end").style.opacity = 0;
+}
+</script></body></html>

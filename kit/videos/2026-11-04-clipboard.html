@@ -1,0 +1,74 @@
+<!doctype html><html><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="fx.css"><link rel="stylesheet" href="real.css">
+<style>
+/* voice-over video: scenes follow kit/voice/2026-11-04-clipboard.json */
+.sub{position:absolute;left:60px;right:60px;top:1600px;text-align:center;font-family:"Inter Display","Inter",sans-serif;font-weight:800;font-size:54px;line-height:1.2;opacity:0}
+.sub b{color:#FFC21A}
+.chips3{position:absolute;left:60px;right:60px;display:flex;flex-direction:column;align-items:center;gap:22px;opacity:0}
+.chips3 span{font-size:46px;font-weight:900;padding:20px 38px;border-radius:999px;background:#121B3A;border:3px solid rgba(61,220,151,.6);opacity:0}
+.qt .field{display:flex;align-items:center;gap:18px;margin-top:20px;font-size:28px}
+.qt .field label{width:150px;color:#bdbdbd}
+.qt .field .v{flex:1;background:#1c1c1c;border:1px solid #4a4a4a;border-radius:8px;padding:12px 16px;color:#fff;white-space:nowrap;overflow:hidden}
+.lnk{margin:40px 36px;font-size:34px}.lnk a{color:#1d4ed8;text-decoration:underline}
+.ctx{position:absolute;width:480px;background:#fff;color:#111;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.45);font-family:"Segoe UI","Inter",sans-serif;font-size:30px;padding:10px 0;opacity:0}
+.ctx div{padding:14px 26px}.ctx .hi{background:#e0ecff}
+.clip{position:absolute;left:80px;right:80px;padding:26px 30px;border-radius:22px;background:#121B3A;border:3px solid rgba(255,194,26,.7);font-size:32px;font-weight:700;opacity:0;white-space:nowrap;overflow:hidden}
+.clip small{display:block;font-size:26px;color:#A7B3D6;margin-bottom:8px}
+.eye{position:absolute;left:0;right:0;text-align:center;opacity:0}
+.eye img{width:220px}.eye div{font-size:44px;font-weight:900;margin-top:20px}
+</style></head><body>
+<div class="bg"></div><div class="grid"></div>
+<div class="layer" id="h1" style="top:250px;opacity:1"><div class="h" id="h1t" style="font-size:96px">Copy the link. <b>That's it.</b> 📋</div></div>
+<div class="page" id="pg" style="left:60px;top:620px"><div class="ub"><i></i><i></i><i></i><div class="u">example.com/linux-downloads</div></div>
+ <div class="lnk">Desktop image: <a id="lk">linux-desktop.iso</a> (5.7 GB)</div><div class="lnk" style="color:#64748b;font-size:28px">Checksums · older versions</div></div>
+<div class="ctx" id="ctx"><div>Open link in new tab</div><div class="hi" id="cp">Copy link address</div><div>Save link as…</div></div>
+<div class="clip" id="clip" style="top:620px"><small>📋 Clipboard</small>https://example.com/files/linux-desktop.iso</div>
+<div class="eye" id="eye" style="top:900px"><img src="icon.svg"><div>SwiftGrab spotted a link 👀</div></div>
+<div class="qt" id="dlg" style="left:100px;top:620px"><div class="tb"><img src="icon.svg">Download file<span class="x">✕</span></div>
+ <div class="bd"><div class="field"><label>Link</label><span class="v">https://example.com/files/linux-desktop.iso</span></div>
+ <div class="field"><label>File name</label><span class="v">linux-desktop.iso</span></div>
+ <div class="field"><label>Save to</label><span class="v">Downloads\Compressed</span></div>
+ <div class="row" style="justify-content:flex-end"><div class="b">Later</div><div class="b">Cancel</div><div class="b def" id="go">Start</div></div></div></div>
+<div class="card" id="toast" style="position:absolute;left:80px;top:760px;opacity:0"><div class="top"><img src="icon.svg">linux-desktop.iso · 5.7 GB</div>
+ <div class="segs" id="segs"></div><div class="meta"><span id="spd">0 MB/s</span><span id="pct">0%</span></div></div>
+<div class="chips3" id="ch" style="top:640px"><span>✓ No pasting</span><span>✓ No extra steps</span><span>✓ It just works</span></div>
+<div class="sub" id="sub"></div>
+<div class="disc" id="disc">Illustration. Real speed depends on your connection and the server.</div>
+<div class="cursor" id="cur"></div>
+<script src="lib.js"></script><script src="fx.js"></script><script src="realfx.js"></script><script>
+chrome(); endcard2('Copy. <b>Downloading.</b>'); $('#cur').innerHTML = CURSOR;
+splitWords($('#h1t'));
+const segs = $("#segs"); for (let i = 0; i < 8; i++) segs.appendChild(document.createElement("div")).appendChild(document.createElement("i"));
+const rate = [1, .86, .93, .8, .97, .84, .9, .88];
+function fill8(t, a, b, top) { const p = seg(t, a, b); let tot = 0; segs.querySelectorAll("i").forEach((e, i) => { const v = clamp(p / rate[i] * .9); e.style.width = v * 100 + "%"; tot += v; }); return Math.min(1, tot / 8); }
+const CAPS = [[4.3, 9.5, 'SwiftGrab <b>spots the link</b> on your clipboard'],
+              [9.6, 13.3, 'The window opens by itself → <b>Start</b>'],
+              [13.4, 18.5, '<b>8 parts</b> at once'],
+              [18.6, 24.0, 'No pasting. <b>No extra steps.</b>']];
+const parts = makeParticles(60, 94);
+function frame(t) {
+  common(t); beatBg(t); streaks(t); flash(t, [24.0]); wipe(t, t < 6 ? 4.2 : t < 11 ? 9.55 : t < 16 ? 13.35 : t < 21 ? 18.55 : 24.0);
+  const c = CAPS.find(x => t >= x[0] && t < x[1]); const sub = $("#sub");
+  if (c) { if (sub.dataset.k !== String(c[0])) { sub.innerHTML = c[2]; sub.dataset.k = c[0]; } show(sub, t, c[0], c[1] - .05, .25); } else sub.style.opacity = 0;
+  $("#h1").style.display = t < 4.2 ? "" : "none"; words($("#h1"), t, .2, .13, 4.1);
+  const pg = $('#pg'), cur = $('#cur'), r = $('#lk').getBoundingClientRect();
+  if (t < 4.2) { pop(pg, t, .4, 4.15);
+    cursorMove(cur, t, .8, 1.6, [900, 1750], [r.left + r.width * .5, r.top + r.height * .6], 4.1);
+    const cx = $('#ctx'); cx.style.left = Math.min(520, r.left + r.width * .5) + 'px'; cx.style.top = (r.top + 50) + 'px'; pop(cx, t, 1.9, 3.6, .25);
+    $('#cp').className = t > 2.9 ? 'hi' : '';
+    if (t > 2.3) { const q = $('#cp').getBoundingClientRect(); cursorMove(cur, t, 2.3, 2.9, [r.left + r.width * .5, r.top + r.height * .6], [q.left + 100, q.top + q.height * .6], 4.1); }
+  } else { pg.style.opacity = 0; $('#ctx').style.opacity = 0; }
+  if (t > 3.1 && t < 9.55) { pop($('#clip'), t, 3.2, 9.5); $('#clip').style.top = t < 4.2 ? '1220px' : lerp(1220, 560, ease(seg(t, 4.3, 4.9))) + 'px'; } else $('#clip').style.opacity = 0;
+  if (t > 4.2 && t < 9.55) { pop($('#eye'), t, 5.4, 9.5); $('#eye').style.transform += ` scale(${1 + .05 * Math.sin(t * 6)})`; } else $('#eye').style.opacity = 0;
+  if (t > 9.55 && t < 13.35) { pop($('#dlg'), t, 9.6, 13.3); const q = $('#go').getBoundingClientRect();
+    cursorMove(cur, t, 10.6, 11.6, [900, 1750], [q.left + q.width * .5, q.top + q.height * .6], 13.2); $('#go').className = t > 11.6 ? 'b hot' : 'b def'; }
+  else $('#dlg').style.opacity = 0;
+  if (!(t < 4.2) && !(t > 9.55 && t < 13.35)) cur.style.opacity = 0;
+  if (t > 13.35 && t < 18.55) { pop($('#toast'), t, 13.4, 18.5); const pp = fill8(t, 13.8, 17.8);
+    $('#pct').textContent = Math.round(pp * 100) + '%'; $('#spd').textContent = pp >= 1 ? 'Complete ✓' : lerp(0, 43.1, ease(seg(t, 13.8, 14.3))).toFixed(1) + ' MB/s · 8 parts'; }
+  else $('#toast').style.opacity = 0;
+  show($('#disc'), t, 13.6, 18.5);
+  if (t > 18.55 && t < 24) { $('#ch').style.opacity = 1 - seg(t, 23.6, 23.95); [...$('#ch').children].forEach((s, i) => pop(s, t, 18.8 + i * .6)); } else $('#ch').style.opacity = 0;
+  if (t < 24) burst(parts, t, t < 19.5 ? 17.8 : 20.1, 540, t < 19.5 ? 900 : 760); else burst(parts, t, 24.0, 540, 760);
+  if (t >= 24) { pop($("#end"), t, 24.0, null, .55); $("#end").style.transform += ` scale(${1 + pulse(t) * .02})`; } else $("#end").style.opacity = 0;
+}
+</script></body></html>

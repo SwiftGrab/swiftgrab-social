@@ -1,0 +1,69 @@
+<!doctype html><html><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="fx.css"><link rel="stylesheet" href="real.css">
+<style>
+/* voice-over video: scenes follow kit/voice/2026-11-04-browser-catch.json */
+.sub{position:absolute;left:60px;right:60px;top:1600px;text-align:center;font-family:"Inter Display","Inter",sans-serif;font-weight:800;font-size:54px;line-height:1.2;opacity:0}
+.sub b{color:#FFC21A}
+.chips3{position:absolute;left:60px;right:60px;display:flex;flex-direction:column;align-items:center;gap:22px;opacity:0}
+.chips3 span{font-size:46px;font-weight:900;padding:20px 38px;border-radius:999px;background:#121B3A;border:3px solid rgba(61,220,151,.6);opacity:0}
+.qt .field{display:flex;align-items:center;gap:18px;margin-top:20px;font-size:28px}
+.qt .field label{width:150px;color:#bdbdbd}
+.qt .field .v{flex:1;background:#1c1c1c;border:1px solid #4a4a4a;border-radius:8px;padding:12px 16px;color:#fff;white-space:nowrap;overflow:hidden}
+.bdl{position:absolute;left:80px;right:80px;padding:28px 30px;border-radius:18px;background:#f3f4f6;color:#111;font-family:"Segoe UI","Inter",sans-serif;font-size:32px;opacity:0;box-shadow:0 30px 70px rgba(0,0,0,.5)}
+.bdl .r{height:16px;border-radius:8px;background:#e5e7eb;margin-top:18px;overflow:hidden}.bdl .r i{display:block;height:100%;width:30%;background:#3b82f6}
+.bdl .m{font-size:26px;color:#6b7280;margin-top:12px}
+.dlbtn{display:inline-block;margin:24px 36px 40px;font-size:34px;font-weight:800;color:#fff;background:#2F7BFF;padding:20px 40px;border-radius:14px}
+.pg2 h5{margin:30px 36px 0;font-size:40px}
+.caught{position:absolute;left:80px;right:80px;padding:30px;border-radius:22px;background:#121B3A;border:3px solid rgba(61,220,151,.7);font-size:40px;font-weight:900;text-align:center;opacity:0}
+.caught small{display:block;font-size:28px;color:#A7B3D6;font-weight:600;margin-top:10px}
+</style></head><body>
+<div class="bg"></div><div class="grid"></div>
+<div class="layer" id="h1" style="top:250px;opacity:1"><div class="h" id="h1t" style="font-size:92px">Browser downloads <b>failing?</b> 😩</div></div>
+<div class="bdl" id="bdl" style="top:760px"><div>⬇ setup-tools-v3.exe</div><div class="r"><i id="bi"></i></div><div class="m" id="bm">1.2 MB/s · 45 min left</div></div>
+<div class="page pg2" id="pg" style="left:60px;top:560px"><div class="ub"><i></i><i></i><i></i><div class="u">example.com/tools</div></div>
+ <h5>Setup Tools v3</h5><p>For Windows 10 &amp; 11 · 312 MB</p><span class="dlbtn" id="dl">⬇ Download</span></div>
+<div class="caught" id="caught" style="top:1100px">✓ SwiftGrab caught the download<small>setup-tools-v3.exe · 312 MB</small></div>
+<div class="card" id="toast" style="position:absolute;left:80px;top:760px;opacity:0"><div class="top"><img src="icon.svg">setup-tools-v3.exe · 312 MB</div>
+ <div class="segs" id="segs"></div><div class="meta"><span id="spd">0 MB/s</span><span id="pct">0%</span></div></div>
+<div class="files" id="files" style="left:90px;top:640px"><div class="hd">📁 Downloads</div>
+ <div class="f" id="nf">🛠️ Programs › setup-tools-v3.exe<span>312 MB ✓</span></div><div class="f">🗜️ Compressed › project-files.zip<span>2.4 GB</span></div>
+ <div class="f">🎬 Video › Holiday trip 2026.mp4<span>1.2 GB</span></div><div class="f">📄 Documents › annual-report-2026.pdf<span>18 MB</span></div></div>
+<div class="sub" id="sub"></div>
+<div class="disc" id="disc">Illustration. Real speed depends on your connection and the server.</div>
+<div class="cursor" id="cur"></div>
+<script src="lib.js"></script><script src="fx.js"></script><script src="realfx.js"></script><script>
+chrome(); endcard2('Click. <b>SwiftGrab takes over.</b>'); $('#cur').innerHTML = CURSOR;
+splitWords($('#h1t'));
+const segs = $("#segs"); for (let i = 0; i < 8; i++) segs.appendChild(document.createElement("div")).appendChild(document.createElement("i"));
+const rate = [1, .86, .93, .8, .97, .84, .9, .88];
+function fill8(t, a, b, top) { const p = seg(t, a, b); let tot = 0; segs.querySelectorAll("i").forEach((e, i) => { const v = clamp(p / rate[i] * .9); e.style.width = v * 100 + "%"; tot += v; }); return Math.min(1, tot / 8); }
+const CAPS = [[4.3, 9.5, 'With the add-on: click <b>Download</b> like always'],
+              [9.6, 13.3, 'SwiftGrab <b>catches it</b> and takes over'],
+              [13.4, 18.5, '<b>8 parts</b> · resumes if it stops'],
+              [18.6, 24.0, 'Sorted into the <b>right folder</b> ✓']];
+const parts = makeParticles(60, 95);
+function frame(t) {
+  common(t); beatBg(t); streaks(t); flash(t, [24.0]); wipe(t, t < 6 ? 4.2 : t < 11 ? 9.55 : t < 16 ? 13.35 : t < 21 ? 18.55 : 24.0);
+  const c = CAPS.find(x => t >= x[0] && t < x[1]); const sub = $("#sub");
+  if (c) { if (sub.dataset.k !== String(c[0])) { sub.innerHTML = c[2]; sub.dataset.k = c[0]; } show(sub, t, c[0], c[1] - .05, .25); } else sub.style.opacity = 0;
+  $("#h1").style.display = t < 4.2 ? "" : "none"; words($("#h1"), t, .2, .13, 4.1);
+  const cur = $('#cur');
+  if (t < 4.2) { pop($('#bdl'), t, .6, 4.15); $('#bi').style.width = lerp(10, 31, seg(t, .6, 2.4)) + '%';
+    const f = t > 2.4; $('#bm').textContent = f ? '❌ Failed – Network error' : '1.2 MB/s · 45 min left'; $('#bm').style.color = f ? '#dc2626' : '';
+    $('#bi').style.background = f ? '#dc2626' : '#3b82f6'; } else $('#bdl').style.opacity = 0;
+  const pg = $('#pg');
+  if (t > 4.2 && t < 13.35) { pop(pg, t, 4.3, 13.3); const q = $('#dl').getBoundingClientRect();
+    if (t < 9.5) cursorMove(cur, t, 6.0, 7.0, [900, 1750], [q.left + q.width * .5, q.top + q.height * .6], 9.4); else cur.style.opacity = 0;
+    $('#dl').style.background = t > 7.0 ? '#16a34a' : '#2F7BFF'; } else { pg.style.opacity = 0; cur.style.opacity = 0; }
+  if (t > 9.55 && t < 13.35) pop($('#caught'), t, 9.7, 13.3); else $('#caught').style.opacity = 0;
+  if (t > 13.35 && t < 18.55) { pop($('#toast'), t, 13.4, 18.5);
+    const drop = t > 15.0 && t < 15.9, pp = fill8(t < 15.0 ? t : t < 15.9 ? 15.0 : t - 0.9, 13.8, 17.6);
+    $('#pct').textContent = Math.round(pp * 100) + '%';
+    $('#spd').textContent = drop ? '⚠ Wi-Fi dropped – waiting…' : pp >= 1 ? 'Complete ✓' : t > 15.9 ? 'Resumed ✓ · 36.2 MB/s' : lerp(0, 36.2, ease(seg(t, 13.8, 14.3))).toFixed(1) + ' MB/s · 8 parts';
+    $('#spd').className = drop ? 'amber' : t > 15.9 ? 'green' : ''; } else $('#toast').style.opacity = 0;
+  show($('#disc'), t, 13.6, 18.5);
+  if (t > 18.55 && t < 24) { pop($('#files'), t, 18.7, 23.95); const x = seg(t, 19.6, 20.1);
+    $('#nf').style.background = `rgba(61,220,151,${.25 * clamp(x * 2)})`; } else $('#files').style.opacity = 0;
+  if (t < 24) burst(parts, t, t < 19.5 ? 9.8 : 19.7, 540, t < 19.5 ? 1150 : 760); else burst(parts, t, 24.0, 540, 760);
+  if (t >= 24) { pop($("#end"), t, 24.0, null, .55); $("#end").style.transform += ` scale(${1 + pulse(t) * .02})`; } else $("#end").style.opacity = 0;
+}
+</script></body></html>
