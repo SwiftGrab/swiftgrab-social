@@ -24,3 +24,7 @@
 2026-11-03 10:00 | topic 15 | Got a long list of files to download? | media/2026-11-03/swiftgrab-queue.mp4
 2026-11-03 13:00 | topic 20 (add-on) | Browsing lots of pages, and want to keep the pictures you saw? | media/2026-11-03/swiftgrab-capture.mp4
 2026-11-03 18:00 | topic 21 (add-on) | Want your browser and Swift Grab to work together? | media/2026-11-03/swiftgrab-pairing.mp4
+2026-11-04 10:00 | topic 5 | Found a download link? Just copy it. | media/2026-11-04/swiftgrab-clipboard.mp4
+2026-11-04 12:00 | link story | link-3.jpg
+2026-11-04 13:00 | topic 11 (add-on) | Your browser's downloads are slow, and stop when the Wi-Fi drops? | media/2026-11-04/swiftgrab-browser-catch.mp4
+2026-11-04 18:00 | topic 14 | Want to try a download manager before you pay? | media/2026-11-04/swiftgrab-free-trial.mp4
