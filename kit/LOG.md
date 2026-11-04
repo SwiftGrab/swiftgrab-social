@@ -28,3 +28,6 @@
 2026-11-04 12:00 | link story | link-3.jpg
 2026-11-04 13:00 | topic 11 (add-on) | Your browser's downloads are slow, and stop when the Wi-Fi drops? | media/2026-11-04/swiftgrab-browser-catch.mp4
 2026-11-04 18:00 | topic 14 | Want to try a download manager before you pay? | media/2026-11-04/swiftgrab-free-trial.mp4
+2026-11-05 10:00 | topic 12 | Not sure if a download app is safe? | media/2026-11-05/swiftgrab-trust.mp4
+2026-11-05 13:00 | topic 9 (add-on popup) | Want to save the video on a web page? | media/2026-11-05/swiftgrab-page-video.mp4
+2026-11-05 18:00 | topic 8 | Downloaded the same file twice, again? | media/2026-11-05/swiftgrab-duplicate.mp4
