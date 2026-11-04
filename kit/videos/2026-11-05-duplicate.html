@@ -1,0 +1,55 @@
+<!doctype html><html><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="fx.css"><link rel="stylesheet" href="real.css">
+<style>
+/* voice-over video: scenes follow kit/voice/2026-11-05-duplicate.json */
+.sub{position:absolute;left:60px;right:60px;top:1600px;text-align:center;font-family:"Inter Display","Inter",sans-serif;font-weight:800;font-size:54px;line-height:1.2;opacity:0}
+.sub b{color:#FFC21A}
+.chips3{position:absolute;left:60px;right:60px;display:flex;flex-direction:column;align-items:center;gap:22px;opacity:0}
+.chips3 span{font-size:46px;font-weight:900;padding:20px 38px;border-radius:999px;background:#121B3A;border:3px solid rgba(61,220,151,.6);opacity:0}
+.chips3.red span{border-color:rgba(239,68,68,.7)}
+.dlbtn{display:inline-block;margin:24px 36px 40px;font-size:34px;font-weight:800;color:#fff;background:#2F7BFF;padding:20px 40px;border-radius:14px}
+.pg2 h5{margin:30px 36px 0;font-size:40px}
+.dups{position:absolute;left:90px;right:90px;opacity:0}
+.dups div{font-size:34px;padding:20px 26px;margin:12px 0;border-radius:16px;background:#121B3A;border:2px solid rgba(239,68,68,.5);opacity:0}
+.qt .bd .row .b{font-size:28px}
+</style></head><body>
+<div class="bg"></div><div class="grid"></div>
+<div class="layer" id="h1" style="top:260px;opacity:1"><div class="h" id="h1t" style="font-size:92px">The same file <b>twice… again?</b> 🙄</div></div>
+<div class="dups" id="dups" style="top:720px"><div>🗜️ project-files.zip</div><div>🗜️ project-files (1).zip</div><div>🗜️ project-files (2).zip</div><div>🗜️ project-files (3).zip</div></div>
+<div class="page pg2" id="pg" style="left:60px;top:560px"><div class="ub"><i></i><i></i><i></i><div class="u">example.com/downloads</div></div>
+ <h5>project-files.zip</h5><p>2.4 GB · updated today</p><span class="dlbtn" id="dl">⬇ Download</span></div>
+<div class="qt" id="dlg" style="left:100px;top:600px"><div class="tb"><img src="icon.svg">Already downloaded<span class="x">✕</span></div>
+ <div class="bd"><div class="t1">You already have this file</div><div class="t2">project-files.zip · 2.4 GB<br>Downloads › Compressed</div>
+ <div class="row"><div class="b" id="b0">Download again</div><div class="b" id="b1">Skip</div><div class="b def" id="b2">Open file</div><div class="b" id="b3">Show in folder</div></div></div></div>
+<div class="chips3" id="c2" style="top:640px"><span>✓ One copy only</span><span>✓ No wasted space</span><span>✓ You decide</span></div>
+<div class="sub" id="sub"></div>
+<div class="cursor" id="cur"></div>
+<script src="lib.js"></script><script src="fx.js"></script><script src="realfx.js"></script><script>
+chrome(); endcard2('One file. <b>One copy.</b>'); $('#cur').innerHTML = CURSOR;
+splitWords($('#h1t'));
+function chips(id, t, a, b) { const el = $(id); if (t > a - .05 && t < b) { el.style.opacity = 1 - seg(t, b - .35, b - .05); [...el.children].forEach((s, i) => pop(s, t, a + .2 + i * .55)); } else el.style.opacity = 0; }
+const CAPS = [[4.3, 9.5, 'SwiftGrab <b>checks first</b>'],
+              [9.6, 13.3, 'Already have it? <b>It asks you</b>'],
+              [13.4, 18.5, '<b>Open</b> · <b>Show in folder</b> · <b>Skip</b> · <b>Download again</b>'],
+              [18.6, 24.0, 'No more <b>copies</b> filling your drive']];
+const parts = makeParticles(60, 98);
+function frame(t) {
+  common(t); beatBg(t); streaks(t); flash(t, [24.0]); wipe(t, t < 6 ? 4.2 : t < 11 ? 9.55 : t < 16 ? 13.35 : t < 21 ? 18.55 : 24.0);
+  const c = CAPS.find(x => t >= x[0] && t < x[1]); const sub = $("#sub");
+  if (c) { if (sub.dataset.k !== String(c[0])) { sub.innerHTML = c[2]; sub.dataset.k = c[0]; } show(sub, t, c[0], c[1] - .05, .25); } else sub.style.opacity = 0;
+  $("#h1").style.display = t < 4.2 ? "" : "none"; words($("#h1"), t, .2, .13, 4.1);
+  if (t < 4.2) { show($('#dups'), t, .4, 4.1); [...$('#dups').children].forEach((d, i) => pop(d, t, .6 + i * .5)); } else $('#dups').style.opacity = 0;
+  const pg = $('#pg'), cur = $('#cur');
+  if (t > 4.2 && t < 9.55) { pop(pg, t, 4.3, 9.5); const q = $('#dl').getBoundingClientRect();
+    cursorMove(cur, t, 5.6, 6.6, [900, 1750], [q.left + q.width * .5, q.top + q.height * .6], 9.4); } else pg.style.opacity = 0;
+  if (t > 9.55 && t < 18.55) { pop($('#dlg'), t, 9.6, 18.5);
+    const order = [2, 3, 1, 0], k = t < 13.6 ? -1 : Math.min(3, Math.floor(seg(t, 13.6, 17.8) * 4));
+    for (let i = 0; i < 4; i++) $('#b' + i).className = 'b' + (k >= 0 && order[k] === i ? ' hot' : i === 2 ? ' def' : '');
+    if (k >= 0) { const q = $('#b' + order[k]).getBoundingClientRect(); cur.style.opacity = 1; cur.style.left = (q.left + q.width * .5) + 'px'; cur.style.top = (q.top + q.height * .6) + 'px'; cur.style.transform = ''; }
+    else if (t > 9.55) cur.style.opacity = 0;
+  } else { $('#dlg').style.opacity = 0; if (t > 9.55) cur.style.opacity = 0; }
+  if (t < 4.2) cur.style.opacity = 0;
+  chips('#c2', t, 18.6, 24.0);
+  if (t < 24) burst(parts, t, t < 19.5 ? 10.0 : 20.3, 540, t < 19.5 ? 760 : 900); else burst(parts, t, 24.0, 540, 760);
+  if (t >= 24) { pop($("#end"), t, 24.0, null, .55); $("#end").style.transform += ` scale(${1 + pulse(t) * .02})`; } else $("#end").style.opacity = 0;
+}
+</script></body></html>
