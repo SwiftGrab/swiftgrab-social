@@ -31,3 +31,7 @@
 2026-11-05 10:00 | topic 12 | Not sure if a download app is safe? | media/2026-11-05/swiftgrab-trust.mp4
 2026-11-05 13:00 | topic 9 (add-on popup) | Want to save the video on a web page? | media/2026-11-05/swiftgrab-page-video.mp4
 2026-11-05 18:00 | topic 8 | Downloaded the same file twice, again? | media/2026-11-05/swiftgrab-duplicate.mp4
+2026-11-06 10:00 | topic 6 | Big download freezing your video call? | media/2026-11-06/swiftgrab-speed-limit.mp4
+2026-11-06 12:00 | link story | link-4.jpg
+2026-11-06 13:00 | topic 16 (add-on) | One click, and the video is saving. | media/2026-11-06/swiftgrab-quick.mp4
+2026-11-06 18:00 | topic 7 | Is your Downloads folder a mess? | media/2026-11-06/swiftgrab-folders.mp4
