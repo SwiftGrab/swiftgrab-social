@@ -1,0 +1,77 @@
+<!doctype html><html><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="fx.css"><link rel="stylesheet" href="real.css">
+<style>
+/* voice-over video: scenes follow kit/voice/2026-11-06-quick.json */
+.sub{position:absolute;left:60px;right:60px;top:1600px;text-align:center;font-family:"Inter Display","Inter",sans-serif;font-weight:800;font-size:54px;line-height:1.2;opacity:0}
+.sub b{color:#FFC21A}
+/* the real SwiftGrab add-on bar (same look as the extension's on-page button) */
+.sgbar{position:absolute;display:flex;align-items:stretch;border-radius:14px;overflow:hidden;background:#1565c0;color:#fff;
+  box-shadow:0 8px 30px rgba(0,0,0,.45);font-family:"Segoe UI","Inter",sans-serif;font-size:34px;opacity:0;transform-origin:right top}
+.sgbar span{display:flex;align-items:center;padding:16px 20px;gap:12px}
+.sgbar .grip{color:rgba(255,255,255,.75);border-right:2px solid rgba(255,255,255,.25);padding:16px 12px}
+.sgbar .q,.sgbar .x{border-left:2px solid rgba(255,255,255,.25);padding:16px 22px;font-size:36px}
+.sgbar .q.ok{background:#2e7d32}
+.sgbar .dl{width:30px;height:30px;border-bottom:5px solid #ffc107;position:relative}
+.sgbar .dl:before{content:"⬇";position:absolute;left:3px;top:-8px;font-size:30px}
+.page .player{height:470px}
+</style></head><body>
+<div class="bg"></div><div class="grid"></div>
+<div class="layer" id="h1" style="top:240px;opacity:1"><div class="h" id="h1t" style="font-size:92px">One click. <b>It's saving.</b> ⚡</div></div>
+<div class="page" id="pg" style="left:60px;top:560px"><div class="ub"><i></i><i></i><i></i><div class="u">example.com/travel-film</div></div>
+ <div class="player" id="pl"><div class="pl"></div><div class="bar2"><i></i></div></div><h5>Mountain trip – short film</h5><p>4K travel film · 3:42</p></div>
+<div class="sgbar" id="bar"><span class="grip">⠿</span><span><i class="dl"></i>Download this video</span><span class="q" id="q">⚡</span><span class="x">✕</span></div>
+<div class="card" id="toast" style="position:absolute;left:80px;top:1180px;opacity:0"><div class="top"><img src="icon.svg">mountain-trip.mp4 · 1080p · best quality</div>
+ <div class="segs" id="segs"></div><div class="meta"><span id="spd">0 MB/s</span><span id="pct">0%</span></div></div>
+<div class="files" id="files" style="left:90px;top:620px"><div class="hd">📁 Downloads › Video</div>
+ <div class="f" id="nf">🎬 mountain-trip.mp4<span>1920×1080 · 214 MB</span></div>
+ <div class="f">🎬 Holiday trip 2026.mp4<span>1.2 GB</span></div><div class="f">🎬 recipe-tutorial.mp4<span>402 MB</span></div></div>
+<div class="sub" id="sub"></div>
+<div class="disc" id="disc">Only download videos you have the right to save.</div>
+<div class="cursor" id="cur"></div>
+<script src="lib.js"></script><script src="fx.js"></script><script src="realfx.js"></script><script>
+chrome(); endcard2('Hover. ⚡ <b>Saved.</b>'); $('#cur').innerHTML = CURSOR;
+splitWords($('#h1t'));
+const CAPS = [[4.3, 8.7, 'Hover the video → the <b>SwiftGrab bar</b> appears'],
+              [8.8, 13.1, 'Click <b>⚡</b> = quick download'],
+              [13.2, 18.3, 'Saved right away, in the <b>best quality</b>'],
+              [18.4, 24.0, 'Ready in your <b>Video</b> folder']];
+const segs = $('#segs'); for (let i = 0; i < 8; i++) segs.appendChild(document.createElement('div')).appendChild(document.createElement('i'));
+const rate = [1, .86, .93, .8, .97, .84, .9, .88]; const parts = makeParticles(60, 61);
+function frame(t) {
+  common(t); beatBg(t); streaks(t); flash(t, [24.0]); wipe(t, t < 6 ? 4.2 : t < 15 ? 13.15 : t < 20 ? 18.35 : 24.0);
+  const c = CAPS.find(x => t >= x[0] && t < x[1]); const sub = $('#sub');
+  if (c) { if (sub.dataset.k !== String(c[0])) { sub.innerHTML = c[2]; sub.dataset.k = c[0]; } show(sub, t, c[0], c[1] - .05, .25); } else sub.style.opacity = 0;
+  $('#h1').style.display = t < 4.2 ? '' : 'none'; words($('#h1'), t, .2, .13, 4.1);
+  // the web page with the video (hook + hover + click)
+  const pg = $('#pg');
+  if (t < 13.15) { pop(pg, t, .5, 13.1); $('#pl .bar2 i').style.width = lerp(8, 40, seg(t, .5, 13)) + '%';
+    pg.style.top = t < 4.2 ? '640px' : lerp(640, 420, ease(seg(t, 4.2, 4.8))) + 'px'; } else pg.style.opacity = 0;
+  // the SwiftGrab bar pops up over the player's top-right corner when the mouse is on it
+  const bar = $('#bar'), plr = $('#pl').getBoundingClientRect();
+  if (t > 6.0 && t < 13.15) { bar.style.right = (1080 - plr.right + 20) + 'px'; bar.style.top = (plr.top + 20) + 'px';
+    pop(bar, t, 6.0, 13.1, .35); } else bar.style.opacity = 0;
+  const q = $('#q'); q.textContent = t > 10.7 ? '✓' : '⚡'; q.className = t > 10.7 ? 'q ok' : 'q';
+  // cursor: onto the video (5.6), then onto ⚡ (10.5)
+  const cur = $('#cur');
+  if (t > 4.6 && t < 12.5) {
+    if (t < 9.6) cursorMove(cur, t, 4.8, 5.8, [880, 1800], [plr.left + plr.width * .5, plr.top + plr.height * .55], 12.4);
+    else { const r = q.getBoundingClientRect(); cursorMove(cur, t, 9.6, 10.5, [plr.left + plr.width * .5, plr.top + plr.height * .55],
+      [r.left + r.width * .45, r.top + r.height * .6], 12.4); }
+  } else cur.style.opacity = 0;
+  // download: 8 parts at once
+  const card = $('#toast');
+  if (t > 11.0 && t < 18.35) {
+    pop(card, t, 11.0, 18.3); card.style.top = t < 13.15 ? '1180px' : lerp(1180, 820, ease(seg(t, 13.2, 13.8))) + 'px';
+    const p = seg(t, 13.4, 17.4); let tot = 0;
+    segs.querySelectorAll('i').forEach((e, i) => { const v = clamp(p / rate[i] * .9); e.style.width = v * 100 + '%'; tot += v; });
+    const pp = Math.min(1, tot / 8); $('#pct').textContent = Math.round(pp * 100) + '%';
+    $('#spd').textContent = pp >= 1 ? 'Complete ✓' : lerp(0, 36.4, ease(seg(t, 13.4, 13.9))).toFixed(1) + ' MB/s';
+  } else card.style.opacity = 0;
+  // Video folder
+  if (t > 18.35 && t < 24) { pop($('#files'), t, 18.5, 23.95); const x = seg(t, 19.6, 20.1);
+    $('#nf').style.background = `rgba(61,220,151,${.25 * clamp(x * 2)})`; $('#nf').style.transform = `scale(${1 + .04 * Math.sin(Math.PI * x)})`;
+  } else $('#files').style.opacity = 0;
+  show($('#disc'), t, 9.0, 23.9);
+  if (t < 24) burst(parts, t, t < 15 ? 10.8 : 19.7, 540, t < 15 ? 700 : 760); else burst(parts, t, 24.0, 540, 760);
+  if (t >= 24) { pop($('#end'), t, 24.0, null, .55); $('#end').style.transform += ` scale(${1 + pulse(t) * .02})`; } else $('#end').style.opacity = 0;
+}
+</script></body></html>

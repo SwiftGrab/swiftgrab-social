@@ -1,0 +1,71 @@
+<!doctype html><html><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="fx.css"><link rel="stylesheet" href="real.css">
+<style>
+/* voice-over video: scenes follow kit/voice/2026-11-06-speed-limit.json */
+.sub{position:absolute;left:60px;right:60px;top:1600px;text-align:center;font-family:"Inter Display","Inter",sans-serif;font-weight:800;font-size:54px;line-height:1.2;opacity:0}
+.sub b{color:#FFC21A}
+.call{position:absolute;left:80px;width:920px;height:560px;border-radius:24px;background:#1b1f2a;box-shadow:0 40px 100px rgba(0,0,0,.6);overflow:hidden;opacity:0}
+.call .tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px;height:440px}
+.call .tiles div{border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:120px}
+.call .t1{background:linear-gradient(135deg,#334155,#0f172a)}.call .t2{background:linear-gradient(135deg,#1e3a8a,#0f172a)}
+.call .bar{display:flex;justify-content:space-between;align-items:center;padding:0 30px;height:96px;font-size:30px;font-weight:700}
+.call .q{padding:10px 20px;border-radius:999px}
+.frz{position:absolute;inset:12px 12px 108px 12px;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;font-size:54px;font-weight:900;color:#fca5a5;opacity:0}
+.qt .field{display:flex;align-items:center;gap:18px;margin-top:22px;font-size:30px}
+.qt .field label{width:320px;color:#bdbdbd}.qt .field .v{flex:1;background:#1c1c1c;border:1px solid #4a4a4a;border-radius:8px;padding:12px 16px;color:#fff}
+.tabs{display:flex;gap:8px;margin-bottom:10px}.tabs span{font-size:24px;padding:8px 16px;border-radius:6px;background:#1f1f1f;color:#bbb}.tabs .on{background:#3a3a3a;color:#fff}
+</style></head><body>
+<div class="bg"></div><div class="grid"></div>
+<div class="layer" id="h1" style="top:240px;opacity:1"><div class="h" id="h1t" style="font-size:90px">Download <b>freezing your call?</b> 📞</div></div>
+<div class="call" id="call" style="top:560px"><div class="tiles"><div class="t1">🙂</div><div class="t2">😊</div></div>
+ <div class="frz" id="frz">⚠ Poor connection</div>
+ <div class="bar"><span>📞 Team call · 12:04</span><span class="q" id="cq">⚠ Poor</span></div></div>
+<div class="card" id="toast" style="position:absolute;left:80px;top:1180px;opacity:0"><div class="top"><img src="icon.svg">game-update-part2.rar · 8.1 GB</div>
+ <div class="segs" id="segs"></div><div class="meta"><span id="spd">41.6 MB/s</span><span id="pct">32%</span></div></div>
+<div class="qt" id="dlg" style="left:90px;top:620px;width:900px"><div class="tb"><img src="icon.svg">Settings<span class="x">✕</span></div>
+ <div class="bd"><div class="tabs"><span>General</span><span class="on">Connection</span><span>Browser</span><span>Video</span></div>
+ <div class="field"><label>Connections per download</label><span class="v">8</span></div>
+ <div class="field"><label>Downloads at the same time</label><span class="v">3</span></div>
+ <div class="field"><label>Speed limit</label><span class="v" id="lim">Unlimited</span></div>
+ <div class="row" style="justify-content:flex-end"><div class="b">Cancel</div><div class="b def" id="ok">OK</div></div></div></div>
+<div class="sub" id="sub"></div>
+<div class="disc" id="disc">Illustration. Real speed depends on your connection and the server.</div>
+<div class="cursor" id="cur"></div>
+<script src="lib.js"></script><script src="fx.js"></script><script src="realfx.js"></script><script>
+chrome(); endcard2('Download in the background. <b>Call stays smooth.</b>'); $('#cur').innerHTML = CURSOR;
+splitWords($('#h1t'));
+const segs = $('#segs'); for (let i = 0; i < 8; i++) segs.appendChild(document.createElement('div')).appendChild(document.createElement('i'));
+function setP(p) { segs.querySelectorAll('i').forEach((e, i) => e.style.width = Math.min(100, p * 100 * (0.94 + 0.012 * i)) + '%'); }
+const CAPS = [[4.3, 9.5, 'Settings → <b>Speed limit</b>'],
+              [9.6, 13.3, 'The download <b>keeps going</b>'],
+              [13.4, 18.5, 'Your call <b>stays smooth</b> ✓'],
+              [18.6, 24.0, 'Call over? Back to <b>Unlimited</b>']];
+const parts = makeParticles(60, 62);
+function frame(t) {
+  common(t); beatBg(t); streaks(t); flash(t, [24.0]); wipe(t, t < 6 ? 4.2 : t < 11 ? 9.55 : t < 16 ? 13.35 : t < 21 ? 18.55 : 24.0);
+  const c = CAPS.find(x => t >= x[0] && t < x[1]); const sub = $("#sub");
+  if (c) { if (sub.dataset.k !== String(c[0])) { sub.innerHTML = c[2]; sub.dataset.k = c[0]; } show(sub, t, c[0], c[1] - .05, .25); } else sub.style.opacity = 0;
+  $("#h1").style.display = t < 4.2 ? "" : "none"; words($("#h1"), t, .2, .13, 4.1);
+  const call = $('#call'), card = $('#toast'), cur = $('#cur');
+  const inCall = t < 4.2 || (t > 9.55 && t < 18.55), good = t > 9.55;
+  if (inCall) { call.style.opacity = t < 4.2 ? Math.min(1, seg(t, .4, .8)) : Math.min(seg(t, 9.6, 9.9), 1 - seg(t, 18.2, 18.5)); call.style.top = t < 4.2 ? '560px' : '520px';
+    $('#frz').style.opacity = !good && t > 1.3 ? .9 : 0; $('#cq').textContent = good ? '✓ Good' : '⚠ Poor'; $('#cq').style.background = good ? '#14532d' : '#7f1d1d'; }
+  else call.style.opacity = 0;
+  if (inCall || t > 18.55 && t < 24) { pop(card, t, t < 4.2 ? .9 : t < 18.55 ? 9.6 : 18.6, t < 4.2 ? 4.15 : t < 18.55 ? 18.5 : 23.95);
+    card.style.top = t > 18.55 ? '1080px' : '1180px';
+    const lim = t > 9.55 && t < 21.6; setP(lerp(.32, .9, seg(t, 0, 23)));
+    $('#pct').textContent = Math.round(lerp(32, 90, seg(t, 0, 23))) + '%';
+    $('#spd').textContent = lim ? '2.0 MB/s · limit on' : '41.6 MB/s'; $('#spd').className = lim ? 'green' : ''; }
+  else card.style.opacity = 0;
+  if (t > 4.2 && t < 9.55 || t > 18.55 && t < 24) { pop($('#dlg'), t, t < 10 ? 4.3 : 18.6, t < 10 ? 9.5 : 23.95);
+    $('#dlg').style.top = t > 18.55 ? '440px' : '620px';
+    const L = '2,000 KB/s'; $('#lim').textContent = t < 10 ? (t > 6.2 ? L.slice(0, Math.round(L.length * seg(t, 6.2, 7.0))) || 'Unlimited' : 'Unlimited') : (t > 20.4 ? 'Unlimited' : '2,000 KB/s');
+    $('#lim').style.outline = (t > 5.4 && t < 9.4) || (t > 19.4 && t < 23.5) ? '4px solid #FFC21A' : 'none';
+    const r = $(t < 10 ? '#lim' : '#lim').getBoundingClientRect(), o = $('#ok').getBoundingClientRect();
+    if (t < 10) { if (t < 7.6) cursorMove(cur, t, 4.8, 5.8, [900, 1750], [r.left + 60, r.top + r.height * .6], 9.4); else cursorMove(cur, t, 7.6, 8.4, [r.left + 60, r.top + r.height * .6], [o.left + o.width * .5, o.top + o.height * .6], 9.4); $('#ok').className = t > 8.4 && t < 10 ? 'b hot' : 'b def'; }
+    else { cursorMove(cur, t, 19.0, 19.9, [900, 1750], [r.left + 60, r.top + r.height * .6], 23.9); $('#ok').className = 'b def'; }
+  } else { $('#dlg').style.opacity = 0; cur.style.opacity = 0; }
+  show($('#disc'), t, 9.7, 18.5);
+  if (t < 24) burst(parts, t, t < 16 ? 13.6 : 20.6, 540, t < 16 ? 800 : 900); else burst(parts, t, 24.0, 540, 760);
+  if (t >= 24) { pop($("#end"), t, 24.0, null, .55); $("#end").style.transform += ` scale(${1 + pulse(t) * .02})`; } else $("#end").style.opacity = 0;
+}
+</script></body></html>

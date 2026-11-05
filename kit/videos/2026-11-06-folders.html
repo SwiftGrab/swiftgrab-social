@@ -1,0 +1,49 @@
+<!doctype html><html><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="fx.css"><link rel="stylesheet" href="real.css">
+<style>
+/* voice-over video: scenes follow kit/voice/2026-11-06-folders.json */
+.sub{position:absolute;left:60px;right:60px;top:1600px;text-align:center;font-family:"Inter Display","Inter",sans-serif;font-weight:800;font-size:54px;line-height:1.2;opacity:0}
+.sub b{color:#FFC21A}
+.mess{position:absolute;left:60px;right:60px;top:560px;height:900px;opacity:0}
+.mess span{position:absolute;font-size:32px;font-weight:700;padding:14px 20px;border-radius:14px;background:#121B3A;border:2px solid rgba(239,68,68,.5);white-space:nowrap}
+.fold{position:absolute;left:60px;right:60px;display:grid;grid-template-columns:1fr 1fr;gap:22px;opacity:0}
+.fold div{border-radius:22px;background:#121B3A;border:2px solid rgba(47,123,255,.45);padding:26px;font-size:40px;font-weight:900;opacity:0}
+.fold div small{display:block;font-size:26px;color:#A7B3D6;font-weight:600;margin-top:8px}
+.fold div.hi{border-color:#3DDC97;box-shadow:0 0 30px rgba(61,220,151,.35)}
+</style></head><body>
+<div class="bg"></div><div class="grid"></div>
+<div class="layer" id="h1" style="top:250px;opacity:1"><div class="h" id="h1t" style="font-size:96px">Downloads folder <b>a mess?</b> 🤯</div></div>
+<div class="mess" id="mess"></div>
+<div class="fold" id="f1" style="top:560px"><div id="v">🎬 Video<small>Holiday trip 2026.mp4</small></div><div id="m">🎵 Music<small>podcast-episode-112.mp3</small></div><div id="i">🖼️ Images<small>photo-0412.jpg</small></div><div id="p">🛠️ Programs<small>setup-tools-v3.exe</small></div><div id="d">📄 Documents<small>annual-report-2026.pdf</small></div><div id="z">🗜️ Compressed<small>project-files.zip</small></div></div>
+<div class="files" id="files" style="left:90px;top:640px"><div class="hd">📁 Downloads</div>
+ <div class="f">🎬 Video<span>12 files</span></div><div class="f">🎵 Music<span>34 files</span></div><div class="f">🖼️ Images<span>210 files</span></div>
+ <div class="f">🛠️ Programs<span>9 files</span></div><div class="f">📄 Documents<span>27 files</span></div><div class="f">🗜️ Compressed<span>15 files</span></div></div>
+<div class="sub" id="sub"></div>
+<script src="lib.js"></script><script src="fx.js"></script><script src="realfx.js"></script><script>
+chrome(); endcard2('Every file. <b>In its place.</b>');
+splitWords($('#h1t'));
+const NAMES = ['IMG_2041.jpg', 'setup (3).exe', 'report-final-v2.pdf', 'song.mp3', 'clip.mp4', 'archive.zip', 'IMG_2042.jpg', 'invoice.pdf', 'movie.mp4', 'installer.msi', 'photo.png', 'notes.docx'];
+const POS = NAMES.map((n, i) => [40 + (i * 271) % 620, 20 + (i * 137) % 760, ((i * 37) % 21) - 10]);
+NAMES.forEach((n, i) => { const s = document.createElement('span'); s.textContent = n; s.style.left = POS[i][0] + 'px'; s.style.top = POS[i][1] + 'px'; s.style.transform = `rotate(${POS[i][2]}deg)`; $('#mess').appendChild(s); });
+const CAPS = [[4.3, 9.5, 'SwiftGrab <b>sorts by type</b>, by itself'],
+              [9.6, 13.3, '<b>Video</b> · <b>Music</b> · <b>Images</b>'],
+              [13.4, 18.5, '<b>Programs</b> · <b>Documents</b> · <b>Compressed</b>'],
+              [18.6, 24.0, 'Easy to find, <b>every time</b> ✓']];
+const parts = makeParticles(60, 63);
+function frame(t) {
+  common(t); beatBg(t); streaks(t); flash(t, [24.0]); wipe(t, t < 6 ? 4.2 : t < 11 ? 9.55 : t < 16 ? 13.35 : t < 21 ? 18.55 : 24.0);
+  const c = CAPS.find(x => t >= x[0] && t < x[1]); const sub = $("#sub");
+  if (c) { if (sub.dataset.k !== String(c[0])) { sub.innerHTML = c[2]; sub.dataset.k = c[0]; } show(sub, t, c[0], c[1] - .05, .25); } else sub.style.opacity = 0;
+  $("#h1").style.display = t < 4.2 ? "" : "none"; words($("#h1"), t, .2, .13, 4.1);
+  const m = $('#mess');
+  if (t < 6.2) { m.style.opacity = Math.min(seg(t, .3, .7), 1 - seg(t, 5.6, 6.1)); [...m.children].forEach((s, i) => {
+      const k = ease(seg(t, 4.4 + i * .1, 5.6 + i * .05)); s.style.transform = `translate(${lerp(0, 540 - POS[i][0], k)}px,${lerp(0, 300 - POS[i][1], k)}px) rotate(${POS[i][2] * (1 - k)}deg) scale(${1 - .7 * k})`; s.style.opacity = 1 - k * .9; }); }
+  else m.style.opacity = 0;
+  const f = $('#f1');
+  if (t > 5.6 && t < 18.55) { f.style.opacity = 1 - seg(t, 18.2, 18.5); const ids = ['v', 'm', 'i', 'p', 'd', 'z'];
+    ids.forEach((id, i) => { pop($('#' + id), t, 5.8 + i * .25); const hiA = [9.7, 11.0, 12.2, 13.5, 14.9, 16.3][i]; $('#' + id).className = t > hiA && t < hiA + 1.6 ? 'hi' : ''; }); }
+  else f.style.opacity = 0;
+  if (t > 18.55 && t < 24) pop($('#files'), t, 18.7, 23.95); else $('#files').style.opacity = 0;
+  if (t < 24) burst(parts, t, t < 15 ? 5.9 : 19.4, 540, t < 15 ? 900 : 760); else burst(parts, t, 24.0, 540, 760);
+  if (t >= 24) { pop($("#end"), t, 24.0, null, .55); $("#end").style.transform += ` scale(${1 + pulse(t) * .02})`; } else $("#end").style.opacity = 0;
+}
+</script></body></html>
