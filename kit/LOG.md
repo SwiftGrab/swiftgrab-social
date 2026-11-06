@@ -35,3 +35,6 @@
 2026-11-06 12:00 | link story | link-4.jpg
 2026-11-06 13:00 | topic 16 (add-on) | One click, and the video is saving. | media/2026-11-06/swiftgrab-quick.mp4
 2026-11-06 18:00 | topic 7 | Is your Downloads folder a mess? | media/2026-11-06/swiftgrab-folders.mp4
+2026-11-07 10:00 | topic 13 | Set up Swift Grab in one minute. | media/2026-11-07/swiftgrab-setup.mp4
+2026-11-07 13:00 | topic 18 (add-on) | Need the P D F from an email, not the preview? | media/2026-11-07/swiftgrab-attachment.mp4
+2026-11-07 18:00 | topic 3 | Big downloads, slow internet during the day? | media/2026-11-07/swiftgrab-night.mp4
