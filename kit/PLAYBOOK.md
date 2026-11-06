@@ -27,6 +27,13 @@ Metricool brand id **7635540**. Website **getswiftgrab.com**. Product: SwiftGrab
 - Speed numbers on screen get the small line "Illustration. Real speed depends on your connection and the server."
 - Every caption contains the website and download lines (see Captions).
 
+## Posting cadence (from Dec 1, 2026 – free Metricool plan)
+Metricool's free plan allows 20 scheduled posts per calendar month; every video and every Story is one post.
+- ONE voice-over video every 2 days at 13:00 (Instagram Reel + Facebook Reel + TikTok + YouTube Short in one post).
+- NO Stories, NO link Stories.
+- At most one widescreen YouTube tutorial per week.
+- Always count the month's posts first and stay at 19 or fewer. If Metricool says "account limit", stop and tell the owner.
+
 ## Topics (rotate; pick the 3 least recently used in `kit/LOG.md`, all different)
 1. Resume after Wi-Fi drops (78% → continues, even after restart)
 2. Speed: one big file in 8 parts at once, live MB/s
