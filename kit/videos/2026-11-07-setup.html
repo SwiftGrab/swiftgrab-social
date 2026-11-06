@@ -1,0 +1,62 @@
+<!doctype html><html><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="fx.css"><link rel="stylesheet" href="real.css">
+<style>
+/* voice-over video: scenes follow kit/voice/2026-11-07-setup.json */
+.sub{position:absolute;left:60px;right:60px;top:1600px;text-align:center;font-family:"Inter Display","Inter",sans-serif;font-weight:800;font-size:54px;line-height:1.2;opacity:0}
+.sub b{color:#FFC21A}
+.steps{position:absolute;left:80px;right:80px;display:flex;flex-direction:column;gap:22px}
+.steps div{display:flex;align-items:center;gap:24px;font-size:42px;font-weight:800;padding:22px 28px;border-radius:22px;background:#121B3A;border:2px solid rgba(47,123,255,.45);opacity:0}
+.steps i{font-style:normal;width:70px;height:70px;border-radius:50%;background:#FFC21A;color:#14110a;display:flex;align-items:center;justify-content:center;font-weight:900}
+.stepchip{position:absolute;left:80px;top:470px;font-size:36px;font-weight:900;padding:12px 26px;border-radius:999px;background:#FFC21A;color:#14110a;opacity:0}
+.dlbtn{display:inline-block;margin:24px 36px 40px;font-size:34px;font-weight:800;color:#fff;background:#2F7BFF;padding:20px 40px;border-radius:14px}
+.pg2 h5{margin:30px 36px 0;font-size:40px}
+.okt{position:absolute;left:80px;right:80px;padding:26px 30px;border-radius:22px;background:#121B3A;border:2px solid rgba(61,220,151,.6);font-size:36px;font-weight:800;opacity:0}
+.okt small{display:block;font-size:26px;color:#A7B3D6;font-weight:600;margin-top:8px}
+.store{position:absolute;left:80px;width:920px;border-radius:24px;background:#fff;color:#0f172a;box-shadow:0 40px 100px rgba(0,0,0,.6);padding:34px;box-sizing:border-box;opacity:0;font-family:"Segoe UI","Inter",sans-serif}
+.store .hd{display:flex;align-items:center;gap:22px}.store .hd img{width:110px}
+.store .t{font-size:44px;font-weight:800}.store .d{font-size:26px;color:#64748b;margin-top:6px}
+.store .add{margin-top:30px;display:inline-block;font-size:32px;font-weight:800;color:#fff;background:#1a73e8;padding:18px 40px;border-radius:12px}
+</style></head><body>
+<div class="bg"></div><div class="grid"></div>
+<div class="layer" id="h1" style="top:250px;opacity:1"><div class="h" id="h1t" style="font-size:96px">Set up in <b>1 minute</b> ⏱️</div></div>
+<div class="steps" id="steps" style="top:640px"><div><i>1</i>Download &amp; install</div><div><i>2</i>Add the browser add-on</div><div><i>3</i>Paste the pairing code</div></div>
+<div class="stepchip" id="chip">Step 1</div>
+<div class="page pg2" id="pg" style="left:60px;top:600px"><div class="ub"><i></i><i></i><i></i><div class="u">getswiftgrab.com</div></div>
+ <h5>SwiftGrab for Windows</h5><p>Free 30-day trial · Windows 10 &amp; 11</p><span class="dlbtn" id="dl">⬇ Download free</span></div>
+<div class="okt" id="inst" style="top:1120px">✓ SwiftGrab installed<small>Verified publisher · digitally signed</small></div>
+<div class="store" id="store" style="top:620px"><div class="hd"><img src="icon.svg"><div><div class="t">SwiftGrab add-on</div><div class="d">Free · for Chrome and Firefox</div></div></div><span class="add" id="add">Add to browser</span></div>
+<div class="okt" id="added" style="top:1020px">✓ Add-on added<small>The SwiftGrab icon is next to the address bar</small></div>
+<div class="shot" id="pair" style="left:40px;top:600px;width:1000px"><img src="screens/tut-pairing-code.webp"><div class="ring" id="rg"></div></div>
+<div class="shot" id="aset" style="left:90px;top:560px;width:900px"><img src="screens/addon-settings.webp"><div class="ring" id="rg2"></div></div>
+<div class="shot" id="work" style="left:40px;top:640px;width:1000px"><img src="screens/tut-working.webp"></div>
+<div class="sub" id="sub"></div>
+<div class="cursor" id="cur"></div>
+<script src="lib.js"></script><script src="fx.js"></script><script src="realfx.js"></script><script>
+chrome(); endcard2('3 steps. <b>Faster downloads.</b>'); $('#cur').innerHTML = CURSOR;
+splitWords($('#h1t'));
+const CAPS = [[4.3, 9.5, '<b>1</b> Download from getswiftgrab.com → install'],
+              [9.6, 13.3, '<b>2</b> Add the <b>free browser add-on</b>'],
+              [13.4, 18.5, '<b>3</b> Copy the <b>pairing code</b> → paste it'],
+              [18.6, 24.0, 'Done! <b>It\'s working</b> ✓']];
+const parts = makeParticles(60, 74);
+function frame(t) {
+  common(t); beatBg(t); streaks(t); flash(t, [24.0]); wipe(t, t < 6 ? 4.2 : t < 11 ? 9.55 : t < 16 ? 13.35 : t < 21 ? 18.55 : 24.0);
+  const c = CAPS.find(x => t >= x[0] && t < x[1]); const sub = $('#sub');
+  if (c) { if (sub.dataset.k !== String(c[0])) { sub.innerHTML = c[2]; sub.dataset.k = c[0]; } show(sub, t, c[0], c[1] - .05, .25); } else sub.style.opacity = 0;
+  $('#h1').style.display = t < 4.2 ? '' : 'none'; words($('#h1'), t, .2, .13, 4.1);
+  if (t < 4.2) { $('#steps').style.opacity = 1 - seg(t, 3.8, 4.15); [...$('#steps').children].forEach((d, i) => pop(d, t, 1.0 + i * .6)); } else $('#steps').style.opacity = 0;
+  const chip = $('#chip'); if (t > 4.2 && t < 18.55) { chip.style.opacity = 1; chip.textContent = 'Step ' + (t < 9.55 ? 1 : t < 13.35 ? 2 : 3); } else chip.style.opacity = 0;
+  const cur = $('#cur');
+  if (t > 4.2 && t < 9.55) { pop($('#pg'), t, 4.3, 9.5); const q = $('#dl').getBoundingClientRect(); cursorMove(cur, t, 5.0, 6.0, [900, 1750], [q.left + q.width * .5, q.top + q.height * .6], 9.4);
+    $('#dl').style.background = t > 6.0 ? '#16a34a' : '#2F7BFF'; pop($('#inst'), t, 7.0, 9.5); } else { $('#pg').style.opacity = 0; $('#inst').style.opacity = 0; }
+  if (t > 9.55 && t < 13.35) { pop($('#store'), t, 9.6, 13.3); const q = $('#add').getBoundingClientRect(); cursorMove(cur, t, 10.0, 10.9, [900, 1750], [q.left + q.width * .5, q.top + q.height * .6], 13.2);
+    $('#add').style.background = t > 10.9 ? '#16a34a' : '#1a73e8'; $('#add').textContent = t > 10.9 ? 'Added ✓' : 'Add to browser'; pop($('#added'), t, 11.4, 13.3); } else { $('#store').style.opacity = 0; $('#added').style.opacity = 0; }
+  if (t > 13.35 && t < 15.9) { const p = $('#pair'); p.style.opacity = Math.min(ease(seg(t, 13.4, 13.7)), 1 - ease(seg(t, 15.6, 15.9))); ring($('#rg'), t, 13.8, 15.8, 642, 168, 90, 48, 1000);
+    cursorMove(cur, t, 13.9, 14.7, [900, 1750], at(p, 686, 192, 1000), 15.8); } else $('#pair').style.opacity = 0;
+  if (t > 15.9 && t < 18.55) { const a = $('#aset'); a.style.opacity = Math.min(ease(seg(t, 15.9, 16.2)), 1 - ease(seg(t, 18.2, 18.5))); ring($('#rg2'), t, 16.3, 18.5, 134, 296, 832, 52, 1100);
+    cursorMove(cur, t, 16.4, 17.2, [900, 1750], at(a, 200, 482, 1100), 18.4); } else $('#aset').style.opacity = 0;
+  if (!(t > 4.2 && t < 18.55)) cur.style.opacity = 0;
+  if (t > 18.55 && t < 24) pop($('#work'), t, 18.7, 23.95); else $('#work').style.opacity = 0;
+  if (t < 24) burst(parts, t, t < 19.5 ? 11.0 : 19.0, 540, t < 19.5 ? 1050 : 760); else burst(parts, t, 24.0, 540, 760);
+  if (t >= 24) { pop($('#end'), t, 24.0, null, .55); $('#end').style.transform += ` scale(${1 + pulse(t) * .02})`; } else $('#end').style.opacity = 0;
+}
+</script></body></html>
