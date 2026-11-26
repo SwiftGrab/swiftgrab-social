@@ -7,3 +7,9 @@ re-scans the page right now (current slide / the video that is playing / the pos
 and rebuilds the list, without reloading the page. Keep the "Download this video/picture"
 row on top after refreshing.
 Files: extension/src/popup.* (button), content.js (rescan message -> slideFile/pageMedia again).
+
+## Update pop-up when the window is opened later (noted 2026-11-25, next update)
+If SwiftGrab is hidden in the tray when the daily update check finds a new version, only the tray
+balloon shows; opening the window later shows just the blue link. Show the UpdateDialog the next
+time the window is opened (once per version, unless "Skip this version"). ui/main_window.py check_updates/show_normal.
+Seen with 1.9.14: 5 PCs got update.json, only 2 installer downloads after a day.
